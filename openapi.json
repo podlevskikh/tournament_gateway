@@ -1,0 +1,986 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "Tournament API",
+    "title": "Tournament API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/tournaments": {
+      "get": {
+        "security": [],
+        "operationId": "listTournaments",
+        "tags": [
+          "tournaments"
+        ],
+        "description": "Get a list of all tournaments",
+        "responses": {
+          "200": {
+            "description": "tournaments list ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TournamentsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/seasons": {
+      "get": {
+        "operationId": "getSeasons",
+        "tags": [
+          "seasons"
+        ],
+        "description": "get seasons",
+        "responses": {
+          "200": {
+            "description": "seasons list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeasonsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      }
+    },
+    "/api/seasons/{season_alias}/stage": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/SeasonAlias"
+        }
+      ],
+      "get": {
+        "operationId": "getSeasonsStages",
+        "tags": [
+          "seasons"
+        ],
+        "description": "get season stages",
+        "responses": {
+          "200": {
+            "description": "season stages list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeasonStagesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "season not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/leagues/{tournament_alias}/{season_alias}/{stage_alias}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/TournamentAlias"
+        },
+        {
+          "$ref": "#/components/parameters/SeasonAlias"
+        },
+        {
+          "$ref": "#/components/parameters/StageAlias"
+        }
+      ],
+      "get": {
+        "operationId": "getLeagues",
+        "tags": [
+          "leagues"
+        ],
+        "description": "get tournament season stage leagues",
+        "responses": {
+          "200": {
+            "description": "league list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaguesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "Tournament or season or stage not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/groups/{tournament_alias}/{season_alias}/{stage_alias}/{league_alias}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/TournamentAlias"
+        },
+        {
+          "$ref": "#/components/parameters/SeasonAlias"
+        },
+        {
+          "$ref": "#/components/parameters/StageAlias"
+        },
+        {
+          "$ref": "#/components/parameters/LeagueAlias"
+        }
+      ],
+      "get": {
+        "operationId": "getGroups",
+        "tags": [
+          "groups"
+        ],
+        "description": "get tournament season stage leagues",
+        "responses": {
+          "200": {
+            "description": "league list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "Tournament or season or stage not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/groups/{group_alias}/matches": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/GroupAlias"
+        }
+      ],
+      "get": {
+        "operationId": "getGroupMatches",
+        "tags": [
+          "groups"
+        ],
+        "description": "get group matches",
+        "responses": {
+          "200": {
+            "description": "match list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "Group not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/groups/{group_alias}/teams": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/GroupAlias"
+        }
+      ],
+      "get": {
+        "operationId": "getGroupTeams",
+        "tags": [
+          "groups"
+        ],
+        "description": "get group teams",
+        "responses": {
+          "200": {
+            "description": "team list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "Group not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/teams/{team_id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/TeamId"
+        }
+      ],
+      "get": {
+        "operationId": "getTeam",
+        "tags": [
+          "teams"
+        ],
+        "description": "get team",
+        "responses": {
+          "200": {
+            "description": "team",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "Team not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/teams/{team_id}/groups": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/TeamId"
+        }
+      ],
+      "get": {
+        "operationId": "getTeamGroups",
+        "tags": [
+          "teams"
+        ],
+        "description": "get team groups",
+        "responses": {
+          "200": {
+            "description": "team groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "Team not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/teams/{team_id}/groups/{group_alias}/players": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/TeamId"
+        },
+        {
+          "$ref": "#/components/parameters/GroupAlias"
+        }
+      ],
+      "get": {
+        "operationId": "getTeamGroupPlayers",
+        "tags": [
+          "teams"
+        ],
+        "description": "get team group players",
+        "responses": {
+          "200": {
+            "description": "team group players",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayersResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "Team or group not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/matches/{match_id}/result": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/MatchId"
+        }
+      ],
+      "get": {
+        "operationId": "getMatchResult",
+        "tags": [
+          "matches"
+        ],
+        "description": "get match result",
+        "responses": {
+          "200": {
+            "description": "matchResult",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "match not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Tournament": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female",
+              "mixed"
+            ]
+          }
+        }
+      },
+      "Season": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "dateStart": {
+            "type": "string",
+            "example": "2020-04-01"
+          },
+          "dateFinish": {
+            "type": "string",
+            "example": "2020-04-01"
+          },
+          "isCurrent": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Stage": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "dateStart": {
+            "type": "string",
+            "example": "2020-04-01"
+          },
+          "dateFinish": {
+            "type": "string",
+            "example": "2020-04-01"
+          },
+          "isCurrent": {
+            "type": "boolean"
+          },
+          "iconUrl": {
+            "type": "string"
+          },
+          "seasonAlias": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "qualification",
+              "groups",
+              "joint",
+              "playOff",
+              "finalFour"
+            ]
+          }
+        }
+      },
+      "League": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "strengthWeight": {
+            "type": "integer"
+          },
+          "toupnametAlias": {
+            "type": "string"
+          },
+          "seasonAlias": {
+            "type": "string"
+          },
+          "stageAlias": {
+            "type": "string"
+          }
+        }
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "toupnametAlias": {
+            "type": "string"
+          },
+          "seasonAlias": {
+            "type": "string"
+          },
+          "stageAlias": {
+            "type": "string"
+          },
+          "leagueAlias": {
+            "type": "string"
+          }
+        }
+      },
+      "Match": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "string",
+            "example": "2022-02-02"
+          },
+          "homeTeamId": {
+            "type": "integer"
+          },
+          "guestTeamId": {
+            "type": "integer"
+          },
+          "result": {
+            "$ref": "#/components/schemas/MatchResult",
+            "nullable": true
+          }
+        }
+      },
+      "Team": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "foundationDate": {
+            "type": "string",
+            "example": "2022-02-02"
+          },
+          "contactUser": {
+            "$ref": "#/components/schemas/User"
+          },
+          "homeGyms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Gym"
+            }
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "nickName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          }
+        }
+      },
+      "Gym": {
+        "type": "object",
+        "properties": {
+          "place": {
+            "$ref": "#/components/schemas/Place"
+          },
+          "weekDay": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          "timeFrom": {
+            "type": "string",
+            "example": "18:00"
+          },
+          "timeTo": {
+            "type": "string",
+            "example": "20:00"
+          },
+          "timeWarmUp": {
+            "type": "string",
+            "example": "18:00"
+          }
+        }
+      },
+      "Place": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "metroStation": {
+            "type": "string"
+          },
+          "adress": {
+            "type": "string"
+          }
+        }
+      },
+      "Player": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "birthDate": {
+            "type": "string",
+            "example": "1987-10-20"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ]
+          },
+          "skill": {
+            "type": "string",
+            "example": "МСМК"
+          },
+          "avaterUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "MatchResult": {
+        "type": "object",
+        "properties": {
+          "matchId": {
+            "type": "integer"
+          },
+          "matchDatetime": {
+            "type": "string",
+            "example": "2022-01-02T19:00:00"
+          },
+          "homeTeamId": {
+            "type": "integer"
+          },
+          "guestTeamId": {
+            "type": "integer"
+          },
+          "winner": {
+            "type": "string",
+            "enum": [
+              "home",
+              "guest"
+            ]
+          },
+          "homePoins": {
+            "type": "integer"
+          },
+          "guestPoins": {
+            "type": "integer"
+          },
+          "setResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SetResult"
+            }
+          },
+          "homeTeamPlayers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Player"
+            }
+          },
+          "guestTeamPlayers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Player"
+            }
+          },
+          "homeBestPlayerId": {
+            "type": "integer"
+          },
+          "guestBestPlayerId": {
+            "type": "integer"
+          },
+          "referee": {
+            "$ref": "#/components/schemas/Referee"
+          },
+          "homeRefereeEvaluation": {
+            "type": "integer"
+          },
+          "guestRefereeEvaluation": {
+            "type": "integer"
+          }
+        }
+      },
+      "SetResult": {
+        "type": "object",
+        "properties": {
+          "homeScore": {
+            "type": "integer"
+          },
+          "guestScore": {
+            "type": "integer"
+          }
+        }
+      },
+      "Referee": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "skill": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "string"
+          }
+        }
+      },
+      "TournamentsResponse": {
+        "type": "object",
+        "properties": {
+          "tournaments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tournament"
+            }
+          }
+        }
+      },
+      "SeasonsResponse": {
+        "type": "object",
+        "properties": {
+          "seasons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Season"
+            }
+          }
+        }
+      },
+      "SeasonStagesResponse": {
+        "type": "object",
+        "properties": {
+          "stages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Stage"
+            }
+          }
+        }
+      },
+      "LeaguesResponse": {
+        "type": "object",
+        "properties": {
+          "leagues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/League"
+            }
+          }
+        }
+      },
+      "GroupsResponse": {
+        "type": "object",
+        "properties": {
+          "groups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Group"
+            }
+          }
+        }
+      },
+      "MatchesResponse": {
+        "type": "object",
+        "properties": {
+          "matches": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Match"
+            }
+          }
+        }
+      },
+      "TeamsResponse": {
+        "type": "object",
+        "properties": {
+          "teams": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Team"
+            }
+          }
+        }
+      },
+      "PlayersResponse": {
+        "type": "object",
+        "properties": {
+          "players": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Player"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "TournamentAlias": {
+        "name": "tournament_alias",
+        "in": "path",
+        "description": "tournament alias",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "SeasonAlias": {
+        "name": "season_alias",
+        "in": "path",
+        "description": "season alias",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "StageAlias": {
+        "name": "stage_alias",
+        "in": "path",
+        "description": "stage alias",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "LeagueAlias": {
+        "name": "league_alias",
+        "in": "path",
+        "description": "league alias",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "GroupAlias": {
+        "name": "group_alias",
+        "in": "path",
+        "description": "group alias",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "TeamId": {
+        "name": "team_id",
+        "in": "path",
+        "description": "team id",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "MatchId": {
+        "name": "match_id",
+        "in": "path",
+        "description": "match id",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Bad request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Identity not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AlreadyAuthenticated": {
+        "description": "Already Authenticated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
