@@ -52,7 +52,7 @@
         }
       }
     },
-    "/api/seasons/{season_alias}/stage": {
+    "/api/seasons/{season_alias}/stages": {
       "parameters": [
         {
           "$ref": "#/components/parameters/SeasonAlias"
@@ -374,10 +374,12 @@
         "type": "object",
         "properties": {
           "code": {
-            "type": "string"
+            "type": "string",
+            "example": "tournament_not_found"
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "example": "tournament not found"
           }
         }
       },
@@ -385,13 +387,16 @@
         "type": "object",
         "properties": {
           "alias": {
-            "type": "string"
+            "type": "string",
+            "example": "male"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "Мужской турнир"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "example": "Регулярный мужской турнир без возрастных ограничений"
           },
           "gender": {
             "type": "string",
@@ -407,10 +412,12 @@
         "type": "object",
         "properties": {
           "alias": {
-            "type": "string"
+            "type": "string",
+            "example": "2021-2022"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "Сезон 2021-2022"
           },
           "dateStart": {
             "type": "string",
@@ -421,7 +428,8 @@
             "example": "2020-04-01"
           },
           "isCurrent": {
-            "type": "boolean"
+            "type": "boolean",
+            "example": true
           }
         }
       },
@@ -429,10 +437,12 @@
         "type": "object",
         "properties": {
           "alias": {
-            "type": "string"
+            "type": "string",
+            "example": "2021-2022_second_group_round"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "Круг 2"
           },
           "dateStart": {
             "type": "string",
@@ -443,13 +453,16 @@
             "example": "2020-04-01"
           },
           "isCurrent": {
-            "type": "boolean"
+            "type": "boolean",
+            "example": true
           },
           "iconUrl": {
-            "type": "string"
+            "type": "string",
+            "example": "http://volleymsk.ru/images/round_icons/2021-2022_group_round_2"
           },
           "seasonAlias": {
-            "type": "string"
+            "type": "string",
+            "example": "2022-2022"
           },
           "type": {
             "type": "string",
@@ -467,22 +480,28 @@
         "type": "object",
         "properties": {
           "alias": {
-            "type": "string"
+            "type": "string",
+            "example": "male_2021-2022_second_group_round_first_league"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "Первая лига"
           },
           "strengthWeight": {
-            "type": "integer"
+            "type": "integer",
+            "example": 3
           },
-          "toupnametAlias": {
-            "type": "string"
+          "tournamentAlias": {
+            "type": "string",
+            "example": "male"
           },
           "seasonAlias": {
-            "type": "string"
+            "type": "string",
+            "example": "2022-2022"
           },
           "stageAlias": {
-            "type": "string"
+            "type": "string",
+            "example": "2021-2022_second_group_round"
           }
         }
       },
@@ -490,22 +509,36 @@
         "type": "object",
         "properties": {
           "alias": {
-            "type": "string"
+            "type": "string",
+            "example": "male_2021-2022_second_group_round_first_league_group_A"
+          },
+          "shortName": {
+            "type": "string",
+            "example": "А"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "Группа А"
           },
-          "toupnametAlias": {
-            "type": "string"
+          "description": {
+            "type": "string",
+            "example": "Мужской турнир, сезон 2021-2022, Первая лига, Круг 2, Группа А"
+          },
+          "tournamentAlias": {
+            "type": "string",
+            "example": "male"
           },
           "seasonAlias": {
-            "type": "string"
+            "type": "string",
+            "example": "2021-2022"
           },
           "stageAlias": {
-            "type": "string"
+            "type": "string",
+            "example": "2021-2022_second_group_round"
           },
           "leagueAlias": {
-            "type": "string"
+            "type": "string",
+            "example": "male_2021-2022_second_group_round_first_league"
           }
         }
       },
@@ -513,17 +546,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "example": 1234
           },
           "date": {
             "type": "string",
             "example": "2022-02-02"
           },
           "homeTeamId": {
-            "type": "integer"
+            "type": "integer",
+            "example": 123
           },
           "guestTeamId": {
-            "type": "integer"
+            "type": "integer",
+            "example": 321
           },
           "result": {
             "$ref": "#/components/schemas/MatchResult",
@@ -535,17 +571,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "example": 123
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "Буревестник"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "example": "Выпускники МГУ"
           },
           "foundationDate": {
             "type": "string",
-            "example": "2022-02-02"
+            "example": "2006-10-01"
           },
           "contactUser": {
             "$ref": "#/components/schemas/User"
@@ -562,22 +601,32 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "example": 12345
           },
           "firstName": {
-            "type": "string"
+            "type": "string",
+            "example": "Абрамов"
           },
           "lastName": {
-            "type": "string"
+            "type": "string",
+            "example": "Петр"
+          },
+          "middleName": {
+            "type": "string",
+            "example": "Николаевич"
           },
           "nickName": {
-            "type": "string"
+            "type": "string",
+            "example": "albert"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "example": "player@volley.msk"
           },
           "phone": {
-            "type": "string"
+            "type": "string",
+            "example": "+7(999)000-11-22"
           }
         }
       },
@@ -617,13 +666,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "example": 4312
           },
           "metroStation": {
-            "type": "string"
+            "type": "string",
+            "example": "Бибирево, Арбатская, Давыдково"
           },
-          "adress": {
-            "type": "string"
+          "address": {
+            "type": "string",
+            "example": "Москва, ул. Академика Королева, дом 1"
           }
         }
       },
@@ -631,16 +683,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "example": 12345
           },
           "firstName": {
-            "type": "string"
+            "type": "string",
+            "example": "Казаков"
           },
           "lastName": {
-            "type": "string"
+            "type": "string",
+            "example": "Александр"
           },
           "middleName": {
-            "type": "string"
+            "type": "string",
+            "example": "Викторович"
           },
           "birthDate": {
             "type": "string",
@@ -658,7 +714,8 @@
             "example": "МСМК"
           },
           "avaterUrl": {
-            "type": "string"
+            "type": "string",
+            "example": "http:/volleymsk.ru/images/player_avatars/12345.jpg"
           }
         }
       },
@@ -666,17 +723,20 @@
         "type": "object",
         "properties": {
           "matchId": {
-            "type": "integer"
+            "type": "integer",
+            "example": 54231
           },
           "matchDatetime": {
             "type": "string",
             "example": "2022-01-02T19:00:00"
           },
           "homeTeamId": {
-            "type": "integer"
+            "type": "integer",
+            "example": 123
           },
           "guestTeamId": {
-            "type": "integer"
+            "type": "integer",
+            "example": 321
           },
           "winner": {
             "type": "string",
@@ -685,11 +745,13 @@
               "guest"
             ]
           },
-          "homePoins": {
-            "type": "integer"
+          "homePoints": {
+            "type": "integer",
+            "example": 2
           },
-          "guestPoins": {
-            "type": "integer"
+          "guestPoints": {
+            "type": "integer",
+            "example": 1
           },
           "setResults": {
             "type": "array",
@@ -710,30 +772,40 @@
             }
           },
           "homeBestPlayerId": {
-            "type": "integer"
+            "type": "integer",
+            "example": 45321
           },
           "guestBestPlayerId": {
-            "type": "integer"
+            "type": "integer",
+            "example": 12345
           },
           "referee": {
             "$ref": "#/components/schemas/Referee"
           },
           "homeRefereeEvaluation": {
-            "type": "integer"
+            "type": "integer",
+            "example": 4
           },
           "guestRefereeEvaluation": {
-            "type": "integer"
+            "type": "integer",
+            "example": 0
           }
         }
       },
       "SetResult": {
         "type": "object",
         "properties": {
+          "setNumber": {
+            "type": "integer",
+            "example": 1
+          },
           "homeScore": {
-            "type": "integer"
+            "type": "integer",
+            "example": 25
           },
           "guestScore": {
-            "type": "integer"
+            "type": "integer",
+            "example": 20
           }
         }
       },
@@ -741,28 +813,36 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "example": 123
           },
           "firstName": {
-            "type": "string"
+            "type": "string",
+            "example": "Цигулев"
           },
           "lastName": {
-            "type": "string"
+            "type": "string",
+            "example": "Иван"
           },
           "middleName": {
-            "type": "string"
+            "type": "string",
+            "example": "Иванович"
           },
           "phone": {
-            "type": "string"
+            "type": "string",
+            "example": "+7(917)112-34-45"
           },
           "skill": {
-            "type": "string"
+            "type": "string",
+            "example": "Судья международной категории"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "example": "любые дни и районы"
           },
           "price": {
-            "type": "string"
+            "type": "string",
+            "example": "1000-1400р, в зависимости от района"
           }
         }
       },
