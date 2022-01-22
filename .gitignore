@@ -1,0 +1,8 @@
+/.idea
+/bin
+/vendor
+*.log
+*.local.yml
+/.env
+/gin-bin
+coverage.out

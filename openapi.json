@@ -713,7 +713,7 @@
             "type": "string",
             "example": "МСМК"
           },
-          "avaterUrl": {
+          "avatarUrl": {
             "type": "string",
             "example": "http:/volleymsk.ru/images/player_avatars/12345.jpg"
           }
