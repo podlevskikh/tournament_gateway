@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
-	"log"
+	"github.com/rs/zerolog"
 )
 
 type Env struct {
@@ -22,7 +22,7 @@ func init() {
 	}
 }
 
-func (r *Resources) initEnv(logger *log.Logger) error {
+func (r *Resources) initEnv(logger *zerolog.Logger) error {
 	var s Env
 	err := envconfig.Process("", &s)
 	if err != nil {
@@ -30,6 +30,6 @@ func (r *Resources) initEnv(logger *log.Logger) error {
 	}
 
 	r.Env = &s
-	logger.Println("init env success")
+	logger.Info().Msg("init env success")
 	return nil
 }

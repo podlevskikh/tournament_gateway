@@ -13,12 +13,12 @@ const (
 )
 
 type Stage struct {
-	Alias      string
-	Name       string
-	DateStart  time.Time
-	DateFinish time.Time
-	IsCurrent  bool
-	IconUrl    string
-	Season     Season
-	Type       StageType
+	Alias       string
+	Name        string
+	DateStart   time.Time
+	DateFinish  time.Time
+	IsCurrent   bool
+	IconUrl     string
+	SeasonAlias string
+	Type        StageType
 }

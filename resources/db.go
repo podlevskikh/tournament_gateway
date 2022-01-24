@@ -5,12 +5,12 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/pkg/errors"
 	"github.com/pressly/goose"
-	"log"
+	"github.com/rs/zerolog"
 )
 
 const driver = "mysql"
 
-func (r *Resources) initDB(logger *log.Logger) error {
+func (r *Resources) initDB(logger *zerolog.Logger) error {
 	conn, err := gorm.Open(driver, r.Env.DSN)
 	if err != nil {
 		return err
@@ -29,8 +29,8 @@ func (r *Resources) initDB(logger *log.Logger) error {
 	if err != nil {
 		return errors.Wrap(err, "do migration")
 	}
-	logger.Println("done migration")
+	logger.Info().Msg("done migration")
 
-	logger.Println("db init")
+	logger.Info().Msg("db init")
 	return nil
 }

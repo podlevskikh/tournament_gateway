@@ -8,4 +8,5 @@ type Season struct {
 	DateStart  time.Time
 	DateFinish time.Time
 	IsCurrent  bool
+	Stages     []*Stage `gorm:"ForeignKey:season_alias;AssociationForeignKey:alias"`
 }

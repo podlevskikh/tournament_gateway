@@ -1,9 +1,8 @@
 package teams
 
 import (
-	"vollyemsk_tournament_gateway/models/gyms"
-	"vollyemsk_tournament_gateway/models/users"
 	"time"
+	"vollyemsk_tournament_gateway/models/users"
 )
 
 type Team struct {
@@ -11,6 +10,6 @@ type Team struct {
 	Name           string
 	Description    string
 	FoundationDate time.Time
-	ContactUsers   []users.User
-	HomeGyms       []gyms.Gym
+	ContactUsers   []*users.User
+	HomeGyms       []*TeamGym
 }

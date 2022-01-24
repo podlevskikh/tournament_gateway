@@ -586,13 +586,16 @@
             "type": "string",
             "example": "2006-10-01"
           },
-          "contactUser": {
-            "$ref": "#/components/schemas/User"
+          "contactUsers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
           },
           "homeGyms": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Gym"
+              "$ref": "#/components/schemas/TeamGym"
             }
           }
         }
@@ -630,11 +633,11 @@
           }
         }
       },
-      "Gym": {
+      "TeamGym": {
         "type": "object",
         "properties": {
           "place": {
-            "$ref": "#/components/schemas/Place"
+            "$ref": "#/components/schemas/Gym"
           },
           "weekDay": {
             "type": "integer",
@@ -662,7 +665,7 @@
           }
         }
       },
-      "Place": {
+      "Gym": {
         "type": "object",
         "properties": {
           "id": {
@@ -729,14 +732,6 @@
           "matchDatetime": {
             "type": "string",
             "example": "2022-01-02T19:00:00"
-          },
-          "homeTeamId": {
-            "type": "integer",
-            "example": 123
-          },
-          "guestTeamId": {
-            "type": "integer",
-            "example": 321
           },
           "winner": {
             "type": "string",

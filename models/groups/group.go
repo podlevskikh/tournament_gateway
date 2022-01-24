@@ -11,8 +11,8 @@ type Group struct {
 	ShortName   string
 	Name        string
 	Description string
-	Tournament  tournaments.Tournament
-	Season      seasons.Season
-	Stage       seasons.Stage
-	League      leagues.League
+	Tournament  *tournaments.Tournament
+	Season      *seasons.Season
+	Stage       *seasons.Stage
+	League      *leagues.League
 }

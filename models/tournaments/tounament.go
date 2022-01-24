@@ -1,6 +1,6 @@
 package tournaments
 
-type TournamentGender = string
+type TournamentGender string
 
 const (
 	TournamentGenderMale   TournamentGender = "male"
