@@ -4,8 +4,12 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
+	groupsControllers "vollyemsk_tournament_gateway/app/api/controllers/groups"
+	leaguesControllers "vollyemsk_tournament_gateway/app/api/controllers/leagues"
 	seasonsControllers "vollyemsk_tournament_gateway/app/api/controllers/seasons"
 	tournamentsControllers "vollyemsk_tournament_gateway/app/api/controllers/tournaments"
+	groupsService "vollyemsk_tournament_gateway/services/groups"
+	leaguesService "vollyemsk_tournament_gateway/services/leagues"
 	seasonsService "vollyemsk_tournament_gateway/services/seasons"
 	tournamentsService "vollyemsk_tournament_gateway/services/tournaments"
 )
@@ -13,11 +17,15 @@ import (
 type RestAPI struct {
 	tournamentsService *tournamentsService.Service
 	seasonsService     *seasonsService.Service
+	leaguesService     *leaguesService.Service
+	groupsService      *groupsService.Service
 	logger             *zerolog.Logger
 }
 
-func NewRestAPI(tournamentsS *tournamentsService.Service, seasonsS *seasonsService.Service, logger *zerolog.Logger) *RestAPI {
-	return &RestAPI{tournamentsService: tournamentsS, seasonsService: seasonsS, logger: logger}
+func NewRestAPI(tournamentsS *tournamentsService.Service, seasonsS *seasonsService.Service,
+	leaguesS *leaguesService.Service, groupsS *groupsService.Service, logger *zerolog.Logger) *RestAPI {
+	return &RestAPI{tournamentsService: tournamentsS, seasonsService: seasonsS,
+		leaguesService: leaguesS, groupsService: groupsS, logger: logger}
 }
 
 func (a *RestAPI) RunHTTPServer(ctx context.Context) error {
@@ -28,6 +36,8 @@ func (a *RestAPI) RunHTTPServer(ctx context.Context) error {
 
 	a.tournamentsHandlers(r)
 	a.seasonsHandlers(r)
+	a.leaguesHandlers(r)
+	a.groupsHandlers(r)
 
 	return r.Run()
 }
@@ -43,4 +53,14 @@ func (a *RestAPI) seasonsHandlers(r *gin.Engine) {
 
 	getStages := seasonsControllers.NewGetStages(a.seasonsService, a.logger)
 	r.GET("/api/seasons/:season_alias/stages", getStages.HTTPHandler)
+}
+
+func (a *RestAPI) leaguesHandlers(r *gin.Engine) {
+	getLeagues := leaguesControllers.NewGetLeagues(a.groupsService, a.logger)
+	r.GET("/api/leagues/:tournament_alias/:season_alias/:stage_alias", getLeagues.HTTPHandler)
+}
+
+func (a *RestAPI) groupsHandlers(r *gin.Engine) {
+	getGroups := groupsControllers.NewGetGroups(a.groupsService, a.logger)
+	r.GET("/api/groups/:tournament_alias/:season_alias/:stage_alias/:league_alias", getGroups.HTTPHandler)
 }

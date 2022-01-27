@@ -7,12 +7,16 @@ import (
 )
 
 type Group struct {
-	Alias       string
-	ShortName   string
-	Name        string
-	Description string
-	Tournament  *tournaments.Tournament
-	Season      *seasons.Season
-	Stage       *seasons.Stage
-	League      *leagues.League
+	Alias           string
+	ShortName       string
+	Name            string
+	Description     string
+	TournamentAlias string
+	SeasonAlias     string
+	StageAlias      string
+	LeagueAlias     string
+	Tournament      *tournaments.Tournament `gorm:"ForeignKey:TournamentAlias;AssociationForeignKey:Alias"`
+	Season          *seasons.Season         `gorm:"ForeignKey:SeasonAlias;AssociationForeignKey:Alias"`
+	Stage           *seasons.Stage          `gorm:"ForeignKey:StageAlias;AssociationForeignKey:Alias"`
+	League          *leagues.League         `gorm:"ForeignKey:LeagueAlias;AssociationForeignKey:Alias"`
 }

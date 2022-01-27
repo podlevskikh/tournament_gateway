@@ -490,18 +490,6 @@
           "strengthWeight": {
             "type": "integer",
             "example": 3
-          },
-          "tournamentAlias": {
-            "type": "string",
-            "example": "male"
-          },
-          "seasonAlias": {
-            "type": "string",
-            "example": "2022-2022"
-          },
-          "stageAlias": {
-            "type": "string",
-            "example": "2021-2022_second_group_round"
           }
         }
       },

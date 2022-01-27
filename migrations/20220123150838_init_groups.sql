@@ -2,7 +2,7 @@
 -- +goose StatementBegin
 create table `groups`
 (
-    `alias`            int(11)      NOT NULL PRIMARY KEY,
+    `alias`            varchar(128) NOT NULL PRIMARY KEY,
     `short_name`       varchar(32)  NOT NULL,
     `name`             varchar(256) NOT NULL,
     `description`      varchar(256) NOT NULL,
