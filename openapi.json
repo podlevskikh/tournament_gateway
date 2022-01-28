@@ -166,7 +166,7 @@
         }
       }
     },
-    "/api/groups/{group_alias}/matches": {
+    "/api/groups/matches/{group_alias}": {
       "parameters": [
         {
           "$ref": "#/components/parameters/GroupAlias"
@@ -199,7 +199,7 @@
         }
       }
     },
-    "/api/groups/{group_alias}/teams": {
+    "/api/groups/teams/{group_alias}": {
       "parameters": [
         {
           "$ref": "#/components/parameters/GroupAlias"
@@ -574,6 +574,12 @@
             "type": "string",
             "example": "2006-10-01"
           },
+          "handicapWins": {
+            "type": "integer"
+          },
+          "handicapPoints": {
+            "type": "integer"
+          },
           "contactUsers": {
             "type": "array",
             "items": {
@@ -713,10 +719,6 @@
       "MatchResult": {
         "type": "object",
         "properties": {
-          "matchId": {
-            "type": "integer",
-            "example": 54231
-          },
           "matchDatetime": {
             "type": "string",
             "example": "2022-01-02T19:00:00"

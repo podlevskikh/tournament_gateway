@@ -61,6 +61,12 @@ func (a *RestAPI) leaguesHandlers(r *gin.Engine) {
 }
 
 func (a *RestAPI) groupsHandlers(r *gin.Engine) {
+	getTeams := groupsControllers.NewGetTeams(a.groupsService, a.logger)
+	r.GET("/api/groups/teams/:group_alias", getTeams.HTTPHandler)
+
+	getMatches := groupsControllers.NewGetMatches(a.groupsService, a.logger)
+	r.GET("/api/groups/matches/:group_alias", getMatches.HTTPHandler)
+
 	getGroups := groupsControllers.NewGetGroups(a.groupsService, a.logger)
 	r.GET("/api/groups/:tournament_alias/:season_alias/:stage_alias/:league_alias", getGroups.HTTPHandler)
 }

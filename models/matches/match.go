@@ -6,9 +6,12 @@ import (
 )
 
 type Match struct {
-	ID        int
-	Date      time.Time
-	HomeTeam  teams.Team
-	GuestTeam teams.Team
-	Result    *MatchResult
+	ID          int
+	Date        time.Time
+	HomeTeamID  int
+	GuestTeamID int
+	HomeTeam    teams.Team   `gorm:"ForeignKey:HomeTeamID;AssociationForeignKey:ID"`
+	GuestTeam   teams.Team   `gorm:"ForeignKey:GuestTeamID;AssociationForeignKey:ID"`
+	Result      *MatchResult `gorm:"ForeignKey:MatchID;AssociationForeignKey:ID"`
+	GroupAlias   string
 }

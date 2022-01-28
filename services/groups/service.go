@@ -34,8 +34,16 @@ func (s *Service) GetLeaguesByTournamentSeasonStage(ctx context.Context, tournam
 	return ls, nil
 }
 
+func (s *Service) GetGroupWithTeams(ctx context.Context, groupAlias string) (groups.Group, error) {
+	return s.rep.GetGroupWithTeams(ctx, groupAlias)
+}
+
+func (s *Service) GetGroupWithMatches(ctx context.Context, groupAlias string) (groups.Group, error) {
+	return s.rep.GetGroupWithMatches(ctx, groupAlias)
+}
+
 func leagueExists(ls []*leagues.League, league *leagues.League) bool {
-	for _, l :=range ls {
+	for _, l := range ls {
 		if l.Alias == league.Alias {
 			return true
 		}

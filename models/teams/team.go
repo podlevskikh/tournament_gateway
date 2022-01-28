@@ -12,4 +12,6 @@ type Team struct {
 	FoundationDate time.Time
 	ContactUsers   []*users.User
 	HomeGyms       []*TeamGym
+	HandicapWins   *int
+	HandicapPoints *int
 }
