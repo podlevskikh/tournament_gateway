@@ -1,4 +1,4 @@
-package teams
+package groups
 
 import "vollyemsk_tournament_gateway/models/gyms"
 
@@ -15,9 +15,15 @@ const (
 )
 
 type TeamGym struct {
-	Gym        *gyms.Gym
+	TeamID     int
+	GymID      int
+	Gym        *gyms.Gym `gorm:"ForeignKey:GymID;AssociationForeignKey:ID"`
 	WeekDay    WeekDay
 	TimeFrom   string
 	TimeTo     string
 	TimeWarmUp string
+}
+
+func (tg *TeamGym) TableName() string {
+	return "team2gym"
 }

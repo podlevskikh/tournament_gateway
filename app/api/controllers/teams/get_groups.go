@@ -9,16 +9,16 @@ import (
 	"vollyemsk_tournament_gateway/app/api/response_success"
 )
 
-type GetTeam struct {
+type GetGroups struct {
 	service TeamsService
 	logger  *zerolog.Logger
 }
 
-func NewGetTeam(service TeamsService, logger *zerolog.Logger) *GetTeam {
-	return &GetTeam{service: service, logger: logger}
+func NewGetGroups(service TeamsService, logger *zerolog.Logger) *GetGroups {
+	return &GetGroups{service: service, logger: logger}
 }
 
-func (s *GetTeam) HTTPHandler(c *gin.Context) {
+func (s *GetGroups) HTTPHandler(c *gin.Context) {
 	teamID, err := strconv.Atoi(c.Param("team_id"))
 	if err != nil {
 		s.logger.Err(err).Msg("get team request")
@@ -26,12 +26,12 @@ func (s *GetTeam) HTTPHandler(c *gin.Context) {
 		return
 	}
 
-	team, err := s.service.GetTeam(c.Request.Context(), teamID)
+	team, err := s.service.GetTeamWithGroups(c.Request.Context(), teamID)
 	if err != nil {
 		s.logger.Err(err).Msg("get team")
 		response_factory.ReturnError(c, response_error.Internal)
 		return
 	}
 
-	response_factory.ReturnSuccess(c, response_success.FromTeamResponse(team))
+	response_factory.ReturnSuccess(c, response_success.FromGroupsResponse(team.Groups))
 }

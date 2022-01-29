@@ -1,7 +1,7 @@
 package response_success
 
 import (
-	"vollyemsk_tournament_gateway/models/matches"
+	"vollyemsk_tournament_gateway/models/groups"
 )
 
 type MatchesResponse struct {
@@ -17,18 +17,18 @@ type MatchResponse struct {
 }
 
 type MatchResultResponse struct {
-	MatchDatetime string              `json:"matchDatetime"`
-	Winner        string              `json:"winner"`
-	HomePoints    int                 `json:"homePoints"`
-	GuestPoints   int                 `json:"guestPoints"`
-	SetResults    []SetResultResponse `json:"setResults"`
-	//HomeTeamPlayers        int    `json:"homeTeamPlayers"`
-	//GuestTeamPlayers       int    `json:"guestTeamPlayers"`
-	HomeBestPlayerId  int `json:"homeBestPlayerId"`
-	GuestBestPlayerId int `json:"guestBestPlayerId"`
-	//Referee                int    `json:"referee"`
-	HomeRefereeEvaluation  int `json:"homeRefereeEvaluation"`
-	GuestRefereeEvaluation int `json:"guestRefereeEvaluation"`
+	MatchDatetime          string              `json:"matchDatetime"`
+	Winner                 string              `json:"winner"`
+	HomePoints             int                 `json:"homePoints"`
+	GuestPoints            int                 `json:"guestPoints"`
+	SetResults             []SetResultResponse `json:"setResults"`
+	HomeTeamPlayers        []PlayerResponse    `json:"homeTeamPlayers,omitempty"`
+	GuestTeamPlayers       []PlayerResponse    `json:"guestTeamPlayers,omitempty"`
+	HomeBestPlayerId       int                 `json:"homeBestPlayerId"`
+	GuestBestPlayerId      int                 `json:"guestBestPlayerId"`
+	Referee                *RefereeResponse    `json:"referee,omitempty"`
+	HomeRefereeEvaluation  int                 `json:"homeRefereeEvaluation"`
+	GuestRefereeEvaluation int                 `json:"guestRefereeEvaluation"`
 }
 
 type SetResultResponse struct {
@@ -37,38 +37,50 @@ type SetResultResponse struct {
 	GuestScore int `json:"guestScore"`
 }
 
-func FromMatchesResponse(ms []matches.Match) MatchesResponse {
+func FromMatchesResponse(ms []groups.Match) MatchesResponse {
 	mrs := make([]MatchResponse, 0, len(ms))
 	for _, m := range ms {
-		mr := MatchResponse{
-			ID:          m.ID,
-			Date:        m.Date.Format("2006-01-02"),
-			HomeTeamID:  m.HomeTeamID,
-			GuestTeamID: m.GuestTeamID,
-		}
-		if m.Result != nil {
-			setResults := make([]SetResultResponse, 0, len(m.Result.SetResults))
-			for _, sr := range m.Result.SetResults {
-				setResults = append(setResults, SetResultResponse{
-					SetNumber:  sr.SetNumber,
-					HomeScore:  sr.HomeScore,
-					GuestScore: sr.GuestScore,
-				})
-			}
-			res := MatchResultResponse{
-				MatchDatetime:          m.Result.MatchDatetime.Format("2006-01-02 15:04:05"),
-				Winner:                 string(m.Result.Winner),
-				HomePoints:             m.Result.HomePoints,
-				GuestPoints:            m.Result.GuestPoints,
-				SetResults:             setResults,
-				HomeBestPlayerId:       m.Result.HomeBestPlayerID,
-				GuestBestPlayerId:      m.Result.GuestBestPlayerID,
-				HomeRefereeEvaluation:  m.Result.HomeRefereeEvaluation,
-				GuestRefereeEvaluation: m.Result.GuestRefereeEvaluation,
-			}
-			mr.Result = &res
-		}
-		mrs = append(mrs, mr)
+		mrs = append(mrs, FromMatchResponse(m))
 	}
 	return MatchesResponse{Matches: mrs}
+}
+
+func FromMatchResponse(m groups.Match) MatchResponse {
+	mr := MatchResponse{
+		ID:          m.ID,
+		Date:        m.Date.Format("2006-01-02"),
+		HomeTeamID:  m.HomeTeamID,
+		GuestTeamID: m.GuestTeamID,
+	}
+	if m.Result != nil {
+		setResults := make([]SetResultResponse, 0, len(m.Result.SetResults))
+		for _, sr := range m.Result.SetResults {
+			setResults = append(setResults, SetResultResponse{
+				SetNumber:  sr.SetNumber,
+				HomeScore:  sr.HomeScore,
+				GuestScore: sr.GuestScore,
+			})
+		}
+		var r *RefereeResponse
+		if m.Result.Referee != nil {
+			ref := FromRefereeResponse(*m.Result.Referee)
+			r = &ref
+		}
+		res := MatchResultResponse{
+			MatchDatetime:          m.Result.MatchDatetime.Format("2006-01-02 15:04:05"),
+			Winner:                 string(m.Result.Winner),
+			HomePoints:             m.Result.HomePoints,
+			GuestPoints:            m.Result.GuestPoints,
+			SetResults:             setResults,
+			HomeTeamPlayers:        FromPlayersResponse(m.Result.HomeTeamPlayers).Players,
+			GuestTeamPlayers:       FromPlayersResponse(m.Result.GuestTeamPlayers).Players,
+			HomeBestPlayerId:       m.Result.HomeBestPlayerID,
+			GuestBestPlayerId:      m.Result.GuestBestPlayerID,
+			HomeRefereeEvaluation:  m.Result.HomeRefereeEvaluation,
+			GuestRefereeEvaluation: m.Result.GuestRefereeEvaluation,
+			Referee:                r,
+		}
+		mr.Result = &res
+	}
+	return mr
 }

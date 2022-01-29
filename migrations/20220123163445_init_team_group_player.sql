@@ -2,10 +2,10 @@
 -- +goose StatementBegin
 create table `team_group_player`
 (
-    `team_id`   int(11) NOT NULL,
-    `group_id`  int(11) NOT NULL,
-    `player_id` int(11) NOT NULL,
-    index (team_id, group_id)
+    `team_id`     int(11)      NOT NULL,
+    `group_alias` varchar(128) NOT NULL,
+    `player_id`   int(11)      NOT NULL,
+    index (team_id, group_alias)
 );
 
 -- +goose StatementEnd

@@ -10,8 +10,14 @@ import (
 	groupsRepository "vollyemsk_tournament_gateway/services/groups/repository"
 	leaguesService "vollyemsk_tournament_gateway/services/leagues"
 	leaguesRepository "vollyemsk_tournament_gateway/services/leagues/repository"
+	matchesService "vollyemsk_tournament_gateway/services/matches"
+	matchesRepository "vollyemsk_tournament_gateway/services/matches/repository"
+	playersService "vollyemsk_tournament_gateway/services/players"
+	playersRepository "vollyemsk_tournament_gateway/services/players/repository"
 	seasonsService "vollyemsk_tournament_gateway/services/seasons"
 	seasonsRepository "vollyemsk_tournament_gateway/services/seasons/repository"
+	teamsService "vollyemsk_tournament_gateway/services/teams"
+	teamsRepository "vollyemsk_tournament_gateway/services/teams/repository"
 	tournamentsService "vollyemsk_tournament_gateway/services/tournaments"
 	tournamentsRepository "vollyemsk_tournament_gateway/services/tournaments/repository"
 )
@@ -29,8 +35,11 @@ func (a *App) Start(ctx context.Context, logger *zerolog.Logger) error {
 	seasonService := seasonsService.NewService(seasonsRepository.NewDb(a.res.DB))
 	leagueService := leaguesService.NewService(leaguesRepository.NewDb(a.res.DB))
 	groupService := groupsService.NewService(groupsRepository.NewDb(a.res.DB))
+	teamService := teamsService.NewService(teamsRepository.NewDb(a.res.DB))
+	playerService := playersService.NewService(playersRepository.NewDb(a.res.DB))
+	matchService := matchesService.NewService(matchesRepository.NewDb(a.res.DB))
 
-	restAPI := api.NewRestAPI(repositoryService, seasonService, leagueService, groupService, a.logger)
+	restAPI := api.NewRestAPI(repositoryService, seasonService, leagueService, groupService, teamService, playerService, matchService, a.logger)
 
 	g, ctx := errgroup.WithContext(ctx)
 	g.Go(func() error {
