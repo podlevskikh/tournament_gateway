@@ -21,6 +21,7 @@ func (r *Db) GetTeam(ctx context.Context, teamID int) (groups.Team, error) {
 		Preload("ContactUsers").
 		Preload("HomeGyms").
 		Preload("HomeGyms.Gym").
+		Preload("HomeGyms.Gym.Metros").
 		Where("id = ?", teamID).
 		First(&t).Error
 	if err != nil {

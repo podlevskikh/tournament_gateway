@@ -2,7 +2,7 @@
 -- +goose StatementBegin
 create table `matches`
 (
-    `id`            int(11)     NOT NULL PRIMARY KEY,
+    `id`            int(11)     NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `date`          date,
     `home_team_id`  int(11)     NOT NULL,
     `guest_team_id` int(11)     NOT NULL,

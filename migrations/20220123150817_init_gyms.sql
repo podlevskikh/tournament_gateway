@@ -2,9 +2,10 @@
 -- +goose StatementBegin
 create table gyms
 (
-    `id`            int(11) NOT NULL PRIMARY KEY,
-    `metro_station` text    NOT NULL,
-    `address`       text    NOT NULL
+    `id`          int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `address`     text    NOT NULL,
+    `name`        text DEFAULT NULL,
+    `description` text DEFAULT NULL
 );
 -- +goose StatementEnd
 

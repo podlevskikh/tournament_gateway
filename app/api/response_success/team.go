@@ -10,7 +10,7 @@ type TeamResponse struct {
 	ID             int               `json:"id"`
 	Name           string            `json:"name"`
 	Description    string            `json:"description"`
-	FoundationDate string            `json:"foundationDate"`
+	Foundation     string            `json:"foundation"`
 	HandicapWins   int               `json:"handicapWins,omitempty"`
 	HandicapPoints int               `json:"handicapPoints,omitempty"`
 	ContactUsers   []UserResponse    `json:"contactUsers,omitempty"`
@@ -35,10 +35,10 @@ func FromTeamsResponse(ts []groups.Team) TeamsResponse {
 
 func FromTeamResponse(t groups.Team) TeamResponse {
 	tr := TeamResponse{
-		ID:             t.ID,
-		Name:           t.Name,
-		Description:    t.Description,
-		FoundationDate: t.FoundationDate.Format("2006-01-02"),
+		ID:          t.ID,
+		Name:        t.Name,
+		Description: t.Description,
+		Foundation:  t.Foundation,
 	}
 	tr.HomeGyms = make([]TeamGymResponse, 0, len(t.HomeGyms))
 	for _, hg := range t.HomeGyms {

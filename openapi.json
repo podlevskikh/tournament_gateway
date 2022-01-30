@@ -570,9 +570,8 @@
             "type": "string",
             "example": "Выпускники МГУ"
           },
-          "foundationDate": {
-            "type": "string",
-            "example": "2006-10-01"
+          "foundation": {
+            "type": "string"
           },
           "handicapWins": {
             "type": "integer"
@@ -666,13 +665,36 @@
             "type": "integer",
             "example": 4312
           },
-          "metroStation": {
-            "type": "string",
-            "example": "Бибирево, Арбатская, Давыдково"
+          "metros": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Metro"
+            }
           },
           "address": {
             "type": "string",
             "example": "Москва, ул. Академика Королева, дом 1"
+          },
+          "name": {
+            "type": "string",
+            "example": "школа 57"
+          },
+          "description": {
+            "type": "string",
+            "example": "вход со двора"
+          }
+        }
+      },
+      "Metro": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 4312
+          },
+          "name": {
+            "type": "string",
+            "example": "Арбатская"
           }
         }
       },

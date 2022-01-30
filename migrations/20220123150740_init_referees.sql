@@ -2,7 +2,7 @@
 -- +goose StatementBegin
 create table referees
 (
-    `id`          int(11)      NOT NULL PRIMARY KEY,
+    `id`          int(11)      NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `first_name`  varchar(64)  NOT NULL,
     `last_name`   varchar(64)  NOT NULL,
     `middle_name` varchar(64)  NOT NULL,
