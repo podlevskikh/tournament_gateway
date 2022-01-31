@@ -481,7 +481,7 @@
         "properties": {
           "alias": {
             "type": "string",
-            "example": "male_2021-2022_second_group_round_first_league"
+            "example": "first_league"
           },
           "name": {
             "type": "string",
