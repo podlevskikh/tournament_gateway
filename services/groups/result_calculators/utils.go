@@ -35,3 +35,10 @@ func getWinLosePointsSet(homeOrGuest string, mr groups.MatchResult) (wins, getPo
 
 	return wins, getPoints, winSets, loseSets, winPoints, losePoints
 }
+
+func getRatio(wins, loses int) float64 {
+	if loses == 0 {
+		return float64(wins) * 1000
+	}
+	return float64(wins) / float64(loses)
+}

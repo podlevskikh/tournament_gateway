@@ -71,13 +71,13 @@ func CalculateWinScoringResults(ts []groups.Team, ms []groups.Match) []groups.Te
 		if res[i].WinsScoringResult.Points != res[j].WinsScoringResult.Points {
 			return res[i].WinsScoringResult.Points > res[j].WinsScoringResult.Points
 		}
-		winToLoseSetsI := float64(res[i].WinsScoringResult.WinSets) / float64(res[i].WinsScoringResult.LoseSets)
-		winToLoseSetsJ := float64(res[j].WinsScoringResult.WinSets) / float64(res[j].WinsScoringResult.LoseSets)
+		winToLoseSetsI := getRatio(res[i].WinsScoringResult.WinSets, res[i].WinsScoringResult.LoseSets)
+		winToLoseSetsJ := getRatio(res[j].WinsScoringResult.WinSets, res[j].WinsScoringResult.LoseSets)
 		if winToLoseSetsI != winToLoseSetsJ {
 			return winToLoseSetsI > winToLoseSetsJ
 		}
-		winToLosePointsI := float64(res[i].WinsScoringResult.WinPoints) / float64(res[i].WinsScoringResult.LosePoints)
-		winToLosePointsJ := float64(res[j].WinsScoringResult.WinPoints) / float64(res[j].WinsScoringResult.LosePoints)
+		winToLosePointsI := getRatio(res[i].WinsScoringResult.WinPoints, res[i].WinsScoringResult.LosePoints)
+		winToLosePointsJ := getRatio(res[j].WinsScoringResult.WinPoints, res[j].WinsScoringResult.LosePoints)
 		if winToLosePointsI != winToLosePointsJ {
 			return winToLosePointsI > winToLosePointsJ
 		}
