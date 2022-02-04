@@ -20,12 +20,12 @@ func NewGetTeams(service Service, logger *zerolog.Logger) *GetTeams {
 func (s *GetTeams) HTTPHandler(c *gin.Context) {
 	groupAlias := c.Param("group_alias")
 
-	group, err := s.service.GetGroupWithTeams(c.Request.Context(), groupAlias)
+	teams, err := s.service.GetGroupTeams(c.Request.Context(), groupAlias)
 	if err != nil {
-		s.logger.Err(err).Msg("get groups")
+		s.logger.Err(err).Msg("get group teams")
 		response_factory.ReturnError(c, response_error.Internal)
 		return
 	}
 
-	response_factory.ReturnSuccess(c, response_success.FromTeamsResponse(group.Teams))
+	response_factory.ReturnSuccess(c, response_success.FromTeamsResponse(teams))
 }

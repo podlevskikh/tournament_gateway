@@ -80,6 +80,9 @@ func (a *RestAPI) groupsHandlers(r *gin.Engine) {
 	getMatches := groupsControllers.NewGetMatches(a.groupsService, a.logger)
 	r.GET("/api/groups/matches/:group_alias", getMatches.HTTPHandler)
 
+	getResults := groupsControllers.NewGetGroupResults(a.groupsService, a.logger)
+	r.GET("/api/groups/results/:group_alias", getResults.HTTPHandler)
+
 	getGroups := groupsControllers.NewGetGroups(a.groupsService, a.logger)
 	r.GET("/api/groups/:tournament_alias/:season_alias/:stage_alias/:league_alias", getGroups.HTTPHandler)
 }

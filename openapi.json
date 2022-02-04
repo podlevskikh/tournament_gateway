@@ -199,6 +199,39 @@
         }
       }
     },
+    "/api/groups/results/{group_alias}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/GroupAlias"
+        }
+      ],
+      "get": {
+        "operationId": "getGroupResults",
+        "tags": [
+          "groups"
+        ],
+        "description": "get group results",
+        "responses": {
+          "200": {
+            "description": "match list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupResultsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "Group not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
     "/api/groups/teams/{group_alias}": {
       "parameters": [
         {
@@ -819,6 +852,157 @@
           }
         }
       },
+      "GroupResult": {
+        "type": "object",
+        "properties": {
+          "teamResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TeamResult"
+            }
+          },
+          "name": {
+            "type": "string",
+            "example": "Группа А"
+          },
+          "scoringType": {
+            "type": "string",
+            "enum": [
+              "wins",
+              "points"
+            ],
+            "example": "wins"
+          }
+        }
+      },
+      "TeamResult": {
+        "type": "object",
+        "properties": {
+          "team": {
+            "$ref": "#/components/schemas/Team"
+          },
+          "place": {
+            "type": "integer",
+            "example": "1"
+          },
+          "winsScoringResult": {
+            "$ref": "#/components/schemas/TeamResultWinsScoring"
+          },
+          "pointsScoringResult": {
+            "$ref": "#/components/schemas/TeamResultPointsScoring"
+          }
+        }
+      },
+      "TeamResultWinsScoring": {
+        "type": "object",
+        "properties": {
+          "wins": {
+            "type": "integer",
+            "example": "2"
+          },
+          "maxPossibleWins": {
+            "type": "integer",
+            "example": "8"
+          },
+          "points": {
+            "type": "integer",
+            "example": "10"
+          },
+          "maxPossiblePoints": {
+            "type": "integer",
+            "example": "20"
+          },
+          "handicapWins": {
+            "type": "integer",
+            "example": "1"
+          },
+          "handicapPoints": {
+            "type": "integer",
+            "example": "1"
+          },
+          "threePointsMatches": {
+            "type": "integer",
+            "example": "2"
+          },
+          "twoPointsMatches": {
+            "type": "integer",
+            "example": "1"
+          },
+          "onePointMatches": {
+            "type": "integer",
+            "example": "1"
+          },
+          "zeroPointsMatches": {
+            "type": "integer",
+            "example": "2"
+          },
+          "winSets": {
+            "type": "integer",
+            "example": "1"
+          },
+          "loseSets": {
+            "type": "integer",
+            "example": "1"
+          },
+          "winPoints": {
+            "type": "integer",
+            "example": "300"
+          },
+          "losePoints": {
+            "type": "integer",
+            "example": "200"
+          }
+        }
+      },
+      "TeamResultPointsScoring": {
+        "type": "object",
+        "properties": {
+          "points": {
+            "type": "integer",
+            "example": "10"
+          },
+          "maxPossiblePoints": {
+            "type": "integer",
+            "example": "20"
+          },
+          "handicapPoints": {
+            "type": "integer",
+            "example": "1"
+          },
+          "threePointsMatches": {
+            "type": "integer",
+            "example": "2"
+          },
+          "twoPointsMatches": {
+            "type": "integer",
+            "example": "1"
+          },
+          "onePointMatches": {
+            "type": "integer",
+            "example": "1"
+          },
+          "zeroPointsMatches": {
+            "type": "integer",
+            "example": "2"
+          },
+          "winSets": {
+            "type": "integer",
+            "example": "1"
+          },
+          "loseSets": {
+            "type": "integer",
+            "example": "1"
+          },
+          "winPoints": {
+            "type": "integer",
+            "example": "300"
+          },
+          "losePoints": {
+            "type": "integer",
+            "example": "200"
+          }
+        }
+      },
       "Referee": {
         "type": "object",
         "properties": {
@@ -918,6 +1102,17 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Match"
+            }
+          }
+        }
+      },
+      "GroupResultsResponse": {
+        "type": "object",
+        "properties": {
+          "group_results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupResult"
             }
           }
         }

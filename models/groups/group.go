@@ -22,4 +22,6 @@ type Group struct {
 
 	Teams   []Team  `gorm:"many2many:team2group;foreignKey:Alias;joinTableForeignKey:GroupAlias;associationForeignKey:ID;associationJoinTableForeignKey:TeamID"`
 	Matches []Match `gorm:"foreignKey:GroupAlias;associationForeignKey:Alias"`
+
+	GroupResults []GroupResult `gorm:"ForeignKey:GroupAlias;AssociationForeignKey:Alias"`
 }

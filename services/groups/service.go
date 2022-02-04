@@ -4,7 +4,8 @@ import (
 	"context"
 	"github.com/pkg/errors"
 	"vollyemsk_tournament_gateway/models/groups"
-	leagues "vollyemsk_tournament_gateway/models/leagues"
+	"vollyemsk_tournament_gateway/models/leagues"
+	"vollyemsk_tournament_gateway/services/groups/result_calculators"
 )
 
 type Service struct {
@@ -34,12 +35,36 @@ func (s *Service) GetLeaguesByTournamentSeasonStage(ctx context.Context, tournam
 	return ls, nil
 }
 
-func (s *Service) GetGroupWithTeams(ctx context.Context, groupAlias string) (groups.Group, error) {
-	return s.rep.GetGroupWithTeams(ctx, groupAlias)
+func (s *Service) GetGroupTeams(ctx context.Context, groupAlias string) ([]groups.Team, error) {
+	gr, err := s.rep.GetGroupWithTeams(ctx, groupAlias)
+	if err != nil {
+		return []groups.Team{}, errors.Wrap(err, "get group with teams")
+	}
+	return gr.Teams, nil
 }
 
-func (s *Service) GetGroupWithMatches(ctx context.Context, groupAlias string) (groups.Group, error) {
-	return s.rep.GetGroupWithMatches(ctx, groupAlias)
+func (s *Service) GetGroupMatches(ctx context.Context, groupAlias string) ([]groups.Match, error) {
+	gr, err := s.rep.GetGroupWithMatches(ctx, groupAlias)
+	if err != nil {
+		return []groups.Match{}, errors.Wrap(err, "get group with matches")
+	}
+	return gr.Matches, nil
+}
+
+func (s *Service) GetGroupResults(ctx context.Context, groupAlias string) ([]groups.GroupResult, error) {
+	gr, err := s.rep.GetGroupWithGroupResultsAndMatches(ctx, groupAlias)
+	if err != nil {
+		return []groups.GroupResult{}, errors.Wrap(err, "get group with matches")
+	}
+	res := gr.GroupResults
+	for i, r := range res {
+		sr, err := getScoringCalculator(r.ScoringType)
+		if err != nil {
+			return []groups.GroupResult{}, errors.Wrap(err, "scoring calculator")
+		}
+		res[i].TeamResults = sr(r.Teams, gr.Matches)
+	}
+	return res, nil
 }
 
 func leagueExists(ls []*leagues.League, league *leagues.League) bool {
@@ -49,4 +74,14 @@ func leagueExists(ls []*leagues.League, league *leagues.League) bool {
 		}
 	}
 	return false
+}
+
+func getScoringCalculator(scoringType string) (func(ts []groups.Team, ms []groups.Match) []groups.TeamResult, error) {
+	switch scoringType {
+	case groups.WinsScoring:
+		return result_calculators.CalculateWinScoringResults, nil
+	case groups.PointsScoring:
+		return result_calculators.CalculatePointScoringResults, nil
+	}
+	return func(ts []groups.Team, ms []groups.Match) []groups.TeamResult { return []groups.TeamResult{} }, errors.New("calculator not supported")
 }

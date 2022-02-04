@@ -62,6 +62,22 @@ func (r *Db) GetGroupWithTeams(ctx context.Context, groupAlias string) (groups.G
 	return gr, nil
 }
 
+func (r *Db) GetGroupWithGroupResultsAndMatches(ctx context.Context, groupAlias string) (groups.Group, error) {
+	var gr groups.Group
+	err := r.db.Set("_ctx", ctx).
+		Preload("GroupResults").
+		Preload("GroupResults.Teams").
+		Preload("Matches").
+		Preload("Matches.Result").
+		Preload("Matches.Result.SetResults").
+		Where("alias = ?", groupAlias).
+		First(&gr).Error
+	if err != nil {
+		return groups.Group{}, errors.Wrap(err, "get group with teams")
+	}
+	return gr, nil
+}
+
 func (r *Db) GetGroupWithMatches(ctx context.Context, groupAlias string) (groups.Group, error) {
 	var gr groups.Group
 	err := r.db.Set("_ctx", ctx).
