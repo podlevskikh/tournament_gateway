@@ -14,7 +14,6 @@ create table `match_results`
     `guest_referee_evaluation` int(2)     NOT NULL,
 
     `winner`                   varchar(8) NOT NULL,
-    `referee_id`               int(11)    NOT NULL,
 
     `approved`                 tinyint    NOT NULL DEFAULT 0
 );

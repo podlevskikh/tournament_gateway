@@ -31,8 +31,7 @@ type MatchResult struct {
 	GuestRefereeEvaluation int
 
 	Winner     Winner
-	RefereeID  int
-	Referee    *referees.Referee `gorm:"ForeignKey:RefereeID;AssociationForeignKey:ID"`
-	SetResults []*SetResult      `gorm:"ForeignKey:ResultMatchID;AssociationForeignKey:MatchID"`
+	Referees   []*referees.Referee `gorm:"many2many:match_result2referee;foreignKey:MatchID;joinTableForeignKey:MatchResultMatchID;associationForeignKey:ID;associationJoinTableForeignKey:RefereeID"`
+	SetResults []*SetResult        `gorm:"ForeignKey:ResultMatchID;AssociationForeignKey:MatchID"`
 	Approved   bool
 }

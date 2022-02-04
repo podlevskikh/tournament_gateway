@@ -26,7 +26,7 @@ type MatchResultResponse struct {
 	GuestTeamPlayers       []PlayerResponse    `json:"guestTeamPlayers,omitempty"`
 	HomeBestPlayerId       int                 `json:"homeBestPlayerId"`
 	GuestBestPlayerId      int                 `json:"guestBestPlayerId"`
-	Referee                *RefereeResponse    `json:"referee,omitempty"`
+	Referees               []*RefereeResponse  `json:"referees"`
 	HomeRefereeEvaluation  int                 `json:"homeRefereeEvaluation"`
 	GuestRefereeEvaluation int                 `json:"guestRefereeEvaluation"`
 }
@@ -61,10 +61,10 @@ func FromMatchResponse(m groups.Match) MatchResponse {
 				GuestScore: sr.GuestScore,
 			})
 		}
-		var r *RefereeResponse
-		if m.Result.Referee != nil {
-			ref := FromRefereeResponse(*m.Result.Referee)
-			r = &ref
+		rs := make([]*RefereeResponse, 0, len(m.Result.Referees))
+		for _, r := range m.Result.Referees {
+			rr := FromRefereeResponse(*r)
+			rs = append(rs, &rr)
 		}
 		res := MatchResultResponse{
 			MatchDatetime:          m.Result.MatchDatetime.Format("2006-01-02 15:04:05"),
@@ -78,7 +78,7 @@ func FromMatchResponse(m groups.Match) MatchResponse {
 			GuestBestPlayerId:      m.Result.GuestBestPlayerID,
 			HomeRefereeEvaluation:  m.Result.HomeRefereeEvaluation,
 			GuestRefereeEvaluation: m.Result.GuestRefereeEvaluation,
-			Referee:                r,
+			Referees:               rs,
 		}
 		mr.Result = &res
 	}

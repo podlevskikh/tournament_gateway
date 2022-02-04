@@ -6,8 +6,8 @@ create table `team2group`
     `group_alias`     varchar(64) NOT NULL,
     `handicap_wins`   int(1)      NOT NULL,
     `handicap_points` int(1)      NOT NULL,
-    index (team_id),
-    index (group_alias)
+    UNIQUE KEY `team_group` (`team_id`, `group_alias`),
+    KEY `group_alias` (`group_alias`)
 );
 
 -- +goose StatementEnd

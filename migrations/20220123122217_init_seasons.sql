@@ -2,11 +2,12 @@
 -- +goose StatementBegin
 create table seasons
 (
-    `alias`       varchar(64) NOT NULL PRIMARY KEY,
+    `alias`       varchar(64) NOT NULL,
     `name`        varchar(64) NOT NULL,
-    `date_start`  date        not null,
-    `date_finish` date        not null,
-    `is_current`  tinyint     NOT NULL
+    `date_start`  date        NOT NULL,
+    `date_finish` date        NOT NULL,
+    `is_current`  tinyint(4)  NOT NULL,
+    PRIMARY KEY (`alias`)
 );
 -- +goose StatementEnd
 

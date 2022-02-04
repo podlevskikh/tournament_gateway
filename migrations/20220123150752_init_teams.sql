@@ -2,10 +2,11 @@
 -- +goose StatementBegin
 create table teams
 (
-    `id`          int(11)      NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `id`          int(11)      NOT NULL AUTO_INCREMENT,
     `name`        varchar(256) NOT NULL,
     `description` text         NOT NULL,
-    `foundation`  varchar(256) NOT NULL
+    `foundation`  varchar(256) NOT NULL,
+    PRIMARY KEY (`id`)
 );
 
 -- +goose StatementEnd

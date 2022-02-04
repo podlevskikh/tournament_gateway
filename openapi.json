@@ -786,8 +786,11 @@
             "type": "integer",
             "example": 12345
           },
-          "referee": {
-            "$ref": "#/components/schemas/Referee"
+          "referees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Referee"
+            }
           },
           "homeRefereeEvaluation": {
             "type": "integer",
