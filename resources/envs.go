@@ -8,7 +8,7 @@ import (
 )
 
 type Env struct {
-	ServiceName string `envconfig:"APP_SERVICENAME" default:"vollyemsk_tournament_gateway"`
+	ServiceName string `envconfig:"APP_SERVICENAME" default:"tournament_gateway"`
 	PodName     string `envconfig:"APP_PODNAME" default:"podname"`
 
 	DSN   string `envconfig:"DB_DSN" required:"true" example:"user:pass@tcp(host:port)/dbname"`

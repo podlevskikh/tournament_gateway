@@ -3,9 +3,9 @@ package groups
 import (
 	"context"
 	"github.com/pkg/errors"
-	"vollyemsk_tournament_gateway/models/groups"
-	"vollyemsk_tournament_gateway/models/leagues"
-	"vollyemsk_tournament_gateway/services/groups/result_calculators"
+	"tournament_gateway/models/groups"
+	"tournament_gateway/models/leagues"
+	"tournament_gateway/services/groups/result_calculators"
 )
 
 type Service struct {

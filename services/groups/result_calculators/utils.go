@@ -1,6 +1,6 @@
 package result_calculators
 
-import "vollyemsk_tournament_gateway/models/groups"
+import "tournament_gateway/models/groups"
 
 func getWinLosePointsSet(homeOrGuest string, mr groups.MatchResult) (wins, getPoints, winSets, loseSets, winPoints, losePoints int) {
 	for _, s := range mr.SetResults {

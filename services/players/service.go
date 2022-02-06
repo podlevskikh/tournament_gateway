@@ -3,7 +3,7 @@ package players
 import (
 	"context"
 	"github.com/pkg/errors"
-	"vollyemsk_tournament_gateway/models/groups"
+	"tournament_gateway/models/groups"
 )
 
 type Service struct {

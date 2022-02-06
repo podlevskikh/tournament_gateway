@@ -2,7 +2,7 @@ package teams
 
 import (
 	"context"
-	"vollyemsk_tournament_gateway/models/groups"
+	"tournament_gateway/models/groups"
 )
 
 type Repository interface {

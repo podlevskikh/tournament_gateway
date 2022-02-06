@@ -1,7 +1,7 @@
 package response_success
 
 import (
-	"vollyemsk_tournament_gateway/models/seasons"
+	"tournament_gateway/models/seasons"
 )
 
 type StagesResponse struct {

@@ -1,6 +1,6 @@
 package response_success
 
-import "vollyemsk_tournament_gateway/models/groups"
+import "tournament_gateway/models/groups"
 
 type TeamsResponse struct {
 	Teams []TeamResponse `json:"teams"`

@@ -2,7 +2,7 @@ package tournaments
 
 import (
 	"context"
-	"vollyemsk_tournament_gateway/models/tournaments"
+	"tournament_gateway/models/tournaments"
 )
 
 type Service struct {

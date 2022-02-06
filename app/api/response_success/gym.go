@@ -1,6 +1,6 @@
 package response_success
 
-import "vollyemsk_tournament_gateway/models/gyms"
+import "tournament_gateway/models/gyms"
 
 type GymResponse struct {
 	ID          int             `json:"id"`

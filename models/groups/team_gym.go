@@ -1,6 +1,6 @@
 package groups
 
-import "vollyemsk_tournament_gateway/models/gyms"
+import "tournament_gateway/models/gyms"
 
 type WeekDay int
 

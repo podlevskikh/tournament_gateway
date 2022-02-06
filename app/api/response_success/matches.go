@@ -1,7 +1,7 @@
 package response_success
 
 import (
-	"vollyemsk_tournament_gateway/models/groups"
+	"tournament_gateway/models/groups"
 )
 
 type MatchesResponse struct {

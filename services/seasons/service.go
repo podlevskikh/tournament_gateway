@@ -2,7 +2,7 @@ package seasons
 
 import (
 	"context"
-	"vollyemsk_tournament_gateway/models/seasons"
+	"tournament_gateway/models/seasons"
 )
 
 type Service struct {

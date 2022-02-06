@@ -1,4 +1,4 @@
-module vollyemsk_tournament_gateway
+module tournament_gateway
 
 go 1.17
 

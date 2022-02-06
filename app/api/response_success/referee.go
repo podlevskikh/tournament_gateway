@@ -1,6 +1,6 @@
 package response_success
 
-import "vollyemsk_tournament_gateway/models/referees"
+import "tournament_gateway/models/referees"
 
 type RefereeResponse struct {
 	ID          int    `json:"id"`

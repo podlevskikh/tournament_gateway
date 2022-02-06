@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/rs/zerolog"
 	"os"
-	"vollyemsk_tournament_gateway/app"
+	"tournament_gateway/app"
 )
 
 var Logger zerolog.Logger

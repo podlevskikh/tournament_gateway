@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/jinzhu/gorm"
 	"github.com/pkg/errors"
-	"vollyemsk_tournament_gateway/models/leagues"
+	"tournament_gateway/models/leagues"
 )
 
 type Db struct {

@@ -2,7 +2,7 @@ package result_calculators
 
 import (
 	"sort"
-	"vollyemsk_tournament_gateway/models/groups"
+	"tournament_gateway/models/groups"
 )
 
 func CalculatePointScoringResults(ts []groups.Team, ms []groups.Match) []groups.TeamResult {

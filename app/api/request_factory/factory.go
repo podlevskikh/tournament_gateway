@@ -3,8 +3,8 @@ package request_factory
 import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"vollyemsk_tournament_gateway/app/api/response_error"
-	"vollyemsk_tournament_gateway/app/api/response_factory"
+	"tournament_gateway/app/api/response_error"
+	"tournament_gateway/app/api/response_factory"
 )
 
 func ReadJSONRequestBody(c *gin.Context, entity interface{}) bool {

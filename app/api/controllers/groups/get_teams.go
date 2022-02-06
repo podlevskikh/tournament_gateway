@@ -3,9 +3,9 @@ package groups
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
-	"vollyemsk_tournament_gateway/app/api/response_error"
-	"vollyemsk_tournament_gateway/app/api/response_factory"
-	"vollyemsk_tournament_gateway/app/api/response_success"
+	"tournament_gateway/app/api/response_error"
+	"tournament_gateway/app/api/response_factory"
+	"tournament_gateway/app/api/response_success"
 )
 
 type GetTeams struct {

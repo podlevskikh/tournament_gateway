@@ -3,10 +3,14 @@ package response_factory
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"vollyemsk_tournament_gateway/app/api/response_error"
+	"tournament_gateway/app/api/response_error"
 )
 
 func ReturnSuccess(c *gin.Context, ret interface{}) {
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Expose-Headers", "X-Total-Count")
+	c.Header("X-Total-Count", "2")
+
 	c.JSON(http.StatusOK, ret)
 }
 

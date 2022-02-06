@@ -2,7 +2,7 @@ package groups
 
 import (
 	"time"
-	"vollyemsk_tournament_gateway/models/referees"
+	"tournament_gateway/models/referees"
 )
 
 type Winner string

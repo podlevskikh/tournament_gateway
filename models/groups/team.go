@@ -1,7 +1,7 @@
 package groups
 
 import (
-	"vollyemsk_tournament_gateway/models/users"
+	"tournament_gateway/models/users"
 )
 
 type Team struct {
