@@ -27,5 +27,5 @@ func (s *GetSeasons) HTTPHandler(c *gin.Context) {
 		response_factory.ReturnError(c, response_error.Internal)
 		return
 	}
-	response_factory.ReturnSuccess(c, response_success.FromSeasonResponse(seasons))
+	response_factory.ReturnSuccessList(c, response_success.FromSeasonsResponse(seasons), len(seasons))
 }

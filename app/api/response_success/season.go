@@ -9,23 +9,29 @@ type SeasonsResponse struct {
 }
 
 type SeasonResponse struct {
-	Alias      string `json:"alias"`
-	Name       string `json:"name"`
-	DateStart  string `json:"dateStart"`
-	DateFinish string `json:"dateFinish"`
-	IsCurrent  bool   `json:"isCurrent"`
+	Alias      string          `json:"alias"`
+	Name       string          `json:"name"`
+	DateStart  string          `json:"dateStart"`
+	DateFinish string          `json:"dateFinish"`
+	IsCurrent  bool            `json:"isCurrent"`
+	Stages     []StageResponse `json:"stages,omitempty"`
 }
 
-func FromSeasonResponse(ss []*seasons.Season) SeasonsResponse {
+func FromSeasonsResponse(ss []*seasons.Season) SeasonsResponse {
 	res := make([]SeasonResponse, 0, len(ss))
 	for _, s := range ss {
-		res = append(res, SeasonResponse{
-			Alias:      s.Alias,
-			Name:       s.Name,
-			DateStart:  s.DateStart.Format("2006-01-02"),
-			DateFinish: s.DateFinish.Format("2006-01-02"),
-			IsCurrent:  s.IsCurrent,
-		})
+		res = append(res, FromSeasonResponse(s))
 	}
 	return SeasonsResponse{Seasons: res}
+}
+
+func FromSeasonResponse(s *seasons.Season) SeasonResponse {
+	return SeasonResponse{
+		Alias:      s.Alias,
+		Name:       s.Name,
+		DateStart:  s.DateStart.Format("2006-01-02"),
+		DateFinish: s.DateFinish.Format("2006-01-02"),
+		IsCurrent:  s.IsCurrent,
+		Stages:     FromStagesResponse(s.Stages).Stages,
+	}
 }

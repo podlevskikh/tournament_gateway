@@ -24,5 +24,5 @@ func (s *GetTournaments) HTTPHandler(c *gin.Context) {
 		response_factory.ReturnError(c, response_error.Internal)
 		return
 	}
-	response_factory.ReturnSuccess(c, response_success.FromTournamentResponse(t))
+	response_factory.ReturnSuccessList(c, response_success.FromTournamentsResponse(t), len(t))
 }

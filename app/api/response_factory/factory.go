@@ -3,15 +3,30 @@ package response_factory
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 	"tournament_gateway/app/api/response_error"
 )
 
-func ReturnSuccess(c *gin.Context, ret interface{}) {
+func ReturnSuccessList(c *gin.Context, ret interface{}, l int) {
 	c.Header("Access-Control-Allow-Origin", "*")
-	c.Header("Access-Control-Expose-Headers", "X-Total-Count")
-	c.Header("X-Total-Count", "2")
+	if l > 0 {
+		c.Header("X-Total-Count", strconv.Itoa(l))
+		c.Header("Access-Control-Expose-Headers", "X-Total-Count")
+	}
 
 	c.JSON(http.StatusOK, ret)
+}
+
+func ReturnSuccess(c *gin.Context, ret interface{}) {
+	c.Header("Access-Control-Allow-Origin", "*")
+
+	c.JSON(http.StatusOK, ret)
+}
+
+func ReturnOptions(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Headers", "X-PINGOTHER, Content-Type")
+	c.Header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE")
 }
 
 func ReturnError(c *gin.Context, re response_error.Error) {

@@ -35,5 +35,5 @@ func (s *GetPlayers) HTTPHandler(c *gin.Context) {
 		return
 	}
 
-	response_factory.ReturnSuccess(c, response_success.FromPlayersResponse(players))
+	response_factory.ReturnSuccessList(c, response_success.FromPlayersResponse(players), len(players))
 }

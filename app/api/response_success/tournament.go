@@ -13,15 +13,19 @@ type TournamentResponse struct {
 	Gender      string `json:"gender"`
 }
 
-func FromTournamentResponse(ts []*tournaments.Tournament) TournamentsResponse {
+func FromTournamentsResponse(ts []*tournaments.Tournament) TournamentsResponse {
 	res := make([]TournamentResponse, 0, len(ts))
 	for _, t := range ts {
-		res = append(res, TournamentResponse{
-			Alias:       t.Alias,
-			Name:        t.Name,
-			Description: t.Description,
-			Gender:      string(t.Gender),
-		})
+		res = append(res, FromTournamentResponse(t))
 	}
 	return TournamentsResponse{Tournaments: res}
+}
+
+func FromTournamentResponse(t *tournaments.Tournament) TournamentResponse {
+	return TournamentResponse{
+		Alias:       t.Alias,
+		Name:        t.Name,
+		Description: t.Description,
+		Gender:      string(t.Gender),
+	}
 }

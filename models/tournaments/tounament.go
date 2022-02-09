@@ -3,11 +3,13 @@ package tournaments
 type TournamentGender string
 
 const (
-	TournamentGenderMale   TournamentGender = "male"
-	TournamentGenderFemale TournamentGender = "female"
+	TournamentGenderUndefined TournamentGender = "undefined"
+	TournamentGenderMale      TournamentGender = "male"
+	TournamentGenderFemale    TournamentGender = "female"
 )
 
 type Tournament struct {
+	//ID          string `gorm:"column:alias"`
 	Alias       string
 	Name        string
 	Description string

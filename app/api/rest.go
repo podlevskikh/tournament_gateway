@@ -4,12 +4,14 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
+	"net/http"
 	groupsControllers "tournament_gateway/app/api/controllers/groups"
 	leaguesControllers "tournament_gateway/app/api/controllers/leagues"
 	matchesControllers "tournament_gateway/app/api/controllers/matches"
 	seasonsControllers "tournament_gateway/app/api/controllers/seasons"
 	teamsControllers "tournament_gateway/app/api/controllers/teams"
 	tournamentsControllers "tournament_gateway/app/api/controllers/tournaments"
+	"tournament_gateway/app/api/response_factory"
 	groupsService "tournament_gateway/services/groups"
 	leaguesService "tournament_gateway/services/leagues"
 	matchesService "tournament_gateway/services/matches"
@@ -45,6 +47,7 @@ func (a *RestAPI) RunHTTPServer(ctx context.Context) error {
 		c.Writer.Header().Set("Content-Type", "application/json")
 	}))
 
+	a.openapiHandlers(r)
 	a.tournamentsHandlers(r)
 	a.seasonsHandlers(r)
 	a.leaguesHandlers(r)
@@ -55,14 +58,29 @@ func (a *RestAPI) RunHTTPServer(ctx context.Context) error {
 	return r.Run()
 }
 
+func (a *RestAPI) openapiHandlers(r *gin.Engine) {
+	r.GET("/openapi.json", func(c *gin.Context) { http.ServeFile(c.Writer, c.Request, "./openapi.json") })
+}
+
 func (a *RestAPI) tournamentsHandlers(r *gin.Engine) {
 	getTournaments := tournamentsControllers.NewGetTournaments(a.tournamentsService, a.logger)
 	r.GET("/api/tournaments", getTournaments.HTTPHandler)
+
+	getTournament := tournamentsControllers.NewGetTournament(a.tournamentsService, a.logger)
+	r.GET("/api/tournaments/:tournament_alias", getTournament.HTTPHandler)
+
+	updateTournament := tournamentsControllers.NewUpdateTournament(a.tournamentsService, a.logger)
+	r.PUT("/api/tournaments/:tournament_alias", updateTournament.HTTPHandler)
+
+	r.OPTIONS("/api/tournaments/:tournament_alias", func(c *gin.Context) { response_factory.ReturnOptions(c) })
 }
 
 func (a *RestAPI) seasonsHandlers(r *gin.Engine) {
 	getSeasons := seasonsControllers.NewGetSeasons(a.seasonsService, a.logger)
 	r.GET("/api/seasons", getSeasons.HTTPHandler)
+
+	getSeason := seasonsControllers.NewGetSeason(a.seasonsService, a.logger)
+	r.GET("/api/seasons/:season_alias", getSeason.HTTPHandler)
 
 	getStages := seasonsControllers.NewGetStages(a.seasonsService, a.logger)
 	r.GET("/api/seasons/:season_alias/stages", getStages.HTTPHandler)

@@ -28,6 +28,72 @@
         }
       }
     },
+    "/api/tournaments/{tournament_alias}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/TournamentAlias"
+        }
+      ],
+      "get": {
+        "security": [],
+        "operationId": "getTournament",
+        "tags": [
+          "tournaments"
+        ],
+        "description": "Get tournament",
+        "responses": {
+          "200": {
+            "description": "tournament ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tournament"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "tournament not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "security": [],
+        "operationId": "updateTournament",
+        "tags": [
+          "tournaments"
+        ],
+        "requestBody": {
+          "description": "Tournament data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tournament"
+              }
+            }
+          }
+        },
+        "description": "Get tournament",
+        "responses": {
+          "200": {
+            "description": "tournament ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tournament"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "tournament not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
     "/api/seasons": {
       "get": {
         "operationId": "getSeasons",
@@ -48,6 +114,76 @@
           },
           "400": {
             "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      }
+    },
+    "/api/seasons/{season_alias}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/SeasonAlias"
+        }
+      ],
+      "get": {
+        "operationId": "getSeason",
+        "tags": [
+          "seasons"
+        ],
+        "description": "get season",
+        "responses": {
+          "200": {
+            "description": "season",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Season"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "season not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateSeason",
+        "tags": [
+          "seasons"
+        ],
+        "description": "update season",
+        "requestBody": {
+          "description": "Season data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Season"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "season",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Season"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "season not found",
+            "$ref": "#/components/responses/NotFound"
           }
         }
       }
@@ -463,6 +599,13 @@
           "isCurrent": {
             "type": "boolean",
             "example": true
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Stage"
+            },
+            "nullable": true
           }
         }
       },

@@ -8,28 +8,26 @@ import (
 	"tournament_gateway/app/api/response_success"
 )
 
-type GetStages struct {
+type GetSeason struct {
 	service Service
 	logger  *zerolog.Logger
 }
 
-func NewGetStages(service Service, logger *zerolog.Logger) *GetStages {
-	return &GetStages{
+func NewGetSeason(service Service, logger *zerolog.Logger) *GetSeason {
+	return &GetSeason{
 		service: service,
 		logger:  logger,
 	}
 }
 
-func (s *GetStages) HTTPHandler(c *gin.Context) {
+func (s *GetSeason) HTTPHandler(c *gin.Context) {
 	seasonAlias := c.Param("season_alias")
 
-	stages, err := s.service.GetStagesBySeasonAlias(c.Request.Context(), seasonAlias)
+	season, err := s.service.GetSeason(c.Request.Context(), seasonAlias)
 	if err != nil {
-		s.logger.Err(err).Msg("get stages")
-		//todo season not found
+		s.logger.Err(err).Msg("get season")
 		response_factory.ReturnError(c, response_error.Internal)
 		return
 	}
-	response_factory.ReturnSuccessList(c, response_success.FromStagesResponse(stages), len(stages))
+	response_factory.ReturnSuccess(c, response_success.FromSeasonResponse(season))
 }
-

@@ -33,5 +33,5 @@ func (s *GetGroups) HTTPHandler(c *gin.Context) {
 		return
 	}
 
-	response_factory.ReturnSuccess(c, response_success.FromGroupsResponse(team.Groups))
+	response_factory.ReturnSuccessList(c, response_success.FromGroupsResponse(team.Groups), len(team.Groups))
 }

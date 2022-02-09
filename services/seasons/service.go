@@ -24,3 +24,11 @@ func (s *Service) GetStagesBySeasonAlias(ctx context.Context, alias string) ([]*
 	}
 	return season.Stages, nil
 }
+
+func (s *Service) GetSeason(ctx context.Context, alias string) (*seasons.Season, error) {
+	season, err := s.rep.GetSeasonByAlias(ctx, alias)
+	if err != nil {
+		return nil, err
+	}
+	return season, nil
+}

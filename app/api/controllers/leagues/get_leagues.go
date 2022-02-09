@@ -29,5 +29,5 @@ func (s *GetLeagues) HTTPHandler(c *gin.Context) {
 		return
 	}
 
-	response_factory.ReturnSuccess(c, response_success.FromLeaguesResponse(leagues))
+	response_factory.ReturnSuccessList(c, response_success.FromLeaguesResponse(leagues), len(leagues))
 }

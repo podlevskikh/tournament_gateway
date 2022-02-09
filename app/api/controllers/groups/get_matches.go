@@ -27,5 +27,5 @@ func (s *GetMatches) HTTPHandler(c *gin.Context) {
 		return
 	}
 
-	response_factory.ReturnSuccess(c, response_success.FromMatchesResponse(matches))
+	response_factory.ReturnSuccessList(c, response_success.FromMatchesResponse(matches), len(matches))
 }

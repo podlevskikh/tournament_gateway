@@ -27,5 +27,5 @@ func (s *GetTeams) HTTPHandler(c *gin.Context) {
 		return
 	}
 
-	response_factory.ReturnSuccess(c, response_success.FromTeamsResponse(teams))
+	response_factory.ReturnSuccessList(c, response_success.FromTeamsResponse(teams), len(teams))
 }

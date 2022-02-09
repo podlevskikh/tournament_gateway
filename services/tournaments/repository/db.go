@@ -23,3 +23,20 @@ func (r *Db) GetTournaments(ctx context.Context) ([]*tournaments.Tournament, err
 	}
 	return t, nil
 }
+
+func (r *Db) GetTournament(ctx context.Context, alias string) (*tournaments.Tournament, error) {
+	var t tournaments.Tournament
+	err := r.db.Set("_ctx", ctx).Where("alias = ?", alias).First(&t).Error
+	if err != nil {
+		return nil, errors.Wrap(err, "get tournament")
+	}
+	return &t, nil
+}
+
+func (r *Db) UpdateTournament(ctx context.Context, t tournaments.Tournament) (*tournaments.Tournament, error) {
+	err := r.db.Set("_ctx", ctx).Model(&t).Where("alias = ?", t.Alias).Update(&t).Error
+	if err != nil {
+		return nil, errors.Wrap(err, "save tournament")
+	}
+	return &t, nil
+}
