@@ -9,20 +9,16 @@ import (
 )
 
 type GetLeagues struct {
-	service Service
+	service LeagueService
 	logger  *zerolog.Logger
 }
 
-func NewGetLeagues(service Service, logger *zerolog.Logger) *GetLeagues {
+func NewGetLeagues(service LeagueService, logger *zerolog.Logger) *GetLeagues {
 	return &GetLeagues{service: service, logger: logger}
 }
 
 func (s *GetLeagues) HTTPHandler(c *gin.Context) {
-	tournamentAlias := c.Param("tournament_alias")
-	seasonAlias := c.Param("season_alias")
-	stageAlias := c.Param("stage_alias")
-
-	leagues, err := s.service.GetLeaguesByTournamentSeasonStage(c.Request.Context(), tournamentAlias, seasonAlias, stageAlias)
+	leagues, err := s.service.GetLeagues(c.Request.Context())
 	if err != nil {
 		s.logger.Err(err).Msg("get leagues")
 		response_factory.ReturnError(c, response_error.Internal)

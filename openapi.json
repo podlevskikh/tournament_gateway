@@ -151,6 +151,39 @@
             "$ref": "#/components/responses/BadRequest"
           }
         }
+      },
+      "post": {
+        "operationId": "createSeason",
+        "tags": [
+          "seasons"
+        ],
+        "description": "create season",
+        "requestBody": {
+          "description": "Season data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Season"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "season",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Season"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
       }
     },
     "/api/seasons/{season_alias}": {
@@ -256,7 +289,134 @@
         }
       }
     },
-    "/api/leagues/{tournament_alias}/{season_alias}/{stage_alias}": {
+    "/api/leagues": {
+      "get": {
+        "operationId": "getLeagues",
+        "tags": [
+          "leagues"
+        ],
+        "description": "get leagues",
+        "responses": {
+          "200": {
+            "description": "league list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaguesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createLeague",
+        "tags": [
+          "leagues"
+        ],
+        "description": "create league",
+        "requestBody": {
+          "description": "League data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/League"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "league",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/League"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      }
+    },
+    "/api/leagues/{league_alias}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/LeagueAlias"
+        }
+      ],
+      "get": {
+        "operationId": "getLeague",
+        "tags": [
+          "leagues"
+        ],
+        "description": "get league",
+        "responses": {
+          "200": {
+            "description": "league",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/League"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "league not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateLeague",
+        "tags": [
+          "leagues"
+        ],
+        "description": "update league",
+        "requestBody": {
+          "description": "League data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/League"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "season",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/League"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "description": "league not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/leagues/find/{tournament_alias}/{season_alias}/{stage_alias}": {
       "parameters": [
         {
           "$ref": "#/components/parameters/TournamentAlias"

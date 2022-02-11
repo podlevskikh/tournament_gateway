@@ -86,8 +86,8 @@ func (a *RestAPI) seasonsHandlers(r *gin.Engine) {
 	getSeason := seasonsControllers.NewGetSeason(a.seasonsService, a.logger)
 	r.GET("/api/seasons/:season_alias", getSeason.HTTPHandler)
 
-	createSeasons := seasonsControllers.NewCreateSeason(a.seasonsService, a.logger)
-	r.POST("/api/seasons", createSeasons.HTTPHandler)
+	createSeason := seasonsControllers.NewCreateSeason(a.seasonsService, a.logger)
+	r.POST("/api/seasons", createSeason.HTTPHandler)
 
 	updateSeason := seasonsControllers.NewUpdateSeason(a.seasonsService, a.logger)
 	r.PUT("/api/seasons/:season_alias", updateSeason.HTTPHandler)
@@ -95,13 +95,28 @@ func (a *RestAPI) seasonsHandlers(r *gin.Engine) {
 	getStages := seasonsControllers.NewGetStages(a.seasonsService, a.logger)
 	r.GET("/api/seasons/:season_alias/stages", getStages.HTTPHandler)
 
-	r.OPTIONS("/api/seasons/:season_alias", func(c *gin.Context) { response_factory.ReturnOptions(c) })
 	r.OPTIONS("/api/seasons", func(c *gin.Context) { response_factory.ReturnOptions(c) })
+	r.OPTIONS("/api/seasons/:season_alias", func(c *gin.Context) { response_factory.ReturnOptions(c) })
 }
 
 func (a *RestAPI) leaguesHandlers(r *gin.Engine) {
-	getLeagues := leaguesControllers.NewGetLeagues(a.groupsService, a.logger)
-	r.GET("/api/leagues/:tournament_alias/:season_alias/:stage_alias", getLeagues.HTTPHandler)
+	findLeagues := leaguesControllers.NewFindLeagues(a.groupsService, a.logger)
+	r.GET("/api/leagues/find/:tournament_alias/:season_alias/:stage_alias", findLeagues.HTTPHandler)
+
+	getLeagues := leaguesControllers.NewGetLeagues(a.leaguesService, a.logger)
+	r.GET("/api/leagues", getLeagues.HTTPHandler)
+
+	getLeague := leaguesControllers.NewGetLeague(a.leaguesService, a.logger)
+	r.GET("/api/leagues/:league_alias", getLeague.HTTPHandler)
+
+	createLeague := leaguesControllers.NewCreateLeague(a.leaguesService, a.logger)
+	r.POST("/api/leagues", createLeague.HTTPHandler)
+
+	updateLeague := leaguesControllers.NewUpdateLeague(a.leaguesService, a.logger)
+	r.PUT("/api/leagues/:league_alias", updateLeague.HTTPHandler)
+
+	r.OPTIONS("/api/leagues", func(c *gin.Context) { response_factory.ReturnOptions(c) })
+	r.OPTIONS("/api/leagues/:league_alias", func(c *gin.Context) { response_factory.ReturnOptions(c) })
 }
 
 func (a *RestAPI) groupsHandlers(r *gin.Engine) {
