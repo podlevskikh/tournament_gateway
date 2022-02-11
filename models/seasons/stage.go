@@ -5,6 +5,7 @@ import "time"
 type StageType string
 
 const (
+	StageTypeUndefined StageType = "undefined"
 	StageTypeQualification StageType = "qualification"
 	StageTypeGroups        StageType = "groups"
 	StageTypeJoint         StageType = "joint"

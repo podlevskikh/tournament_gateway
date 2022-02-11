@@ -40,3 +40,11 @@ func (r *Db) UpdateTournament(ctx context.Context, t tournaments.Tournament) (*t
 	}
 	return &t, nil
 }
+
+func (r *Db) CreateTournament(ctx context.Context, t tournaments.Tournament) (*tournaments.Tournament, error) {
+	err := r.db.Set("_ctx", ctx).Create(&t).Error
+	if err != nil {
+		return nil, errors.Wrap(err, "save tournament")
+	}
+	return &t, nil
+}

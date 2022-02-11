@@ -24,3 +24,7 @@ func (s *Service) GetTournament(ctx context.Context, alias string) (*tournaments
 func (s *Service) UpdateTournament(ctx context.Context, t tournaments.Tournament) (*tournaments.Tournament, error) {
 	return s.rep.UpdateTournament(ctx, t)
 }
+
+func (s *Service) CreateTournament(ctx context.Context, t tournaments.Tournament) (*tournaments.Tournament, error) {
+	return s.rep.CreateTournament(ctx, t)
+}

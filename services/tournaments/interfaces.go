@@ -9,4 +9,5 @@ type Repository interface {
 	GetTournaments(ctx context.Context) ([]*tournaments.Tournament, error)
 	GetTournament(ctx context.Context, alias string) (*tournaments.Tournament, error)
 	UpdateTournament(ctx context.Context, t tournaments.Tournament) (*tournaments.Tournament, error)
+	CreateTournament(ctx context.Context, t tournaments.Tournament) (*tournaments.Tournament, error)
 }

@@ -26,6 +26,41 @@
             }
           }
         }
+      },
+      "post": {
+        "security": [],
+        "operationId": "createTournament",
+        "tags": [
+          "tournaments"
+        ],
+        "requestBody": {
+          "description": "Tournament data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tournament"
+              }
+            }
+          }
+        },
+        "description": "Create tournament",
+        "responses": {
+          "200": {
+            "description": "tournament ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tournament"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "tournament not found",
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
       }
     },
     "/api/tournaments/{tournament_alias}": {
@@ -75,7 +110,7 @@
             }
           }
         },
-        "description": "Get tournament",
+        "description": "Update tournament",
         "responses": {
           "200": {
             "description": "tournament ",

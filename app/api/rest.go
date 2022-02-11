@@ -72,7 +72,11 @@ func (a *RestAPI) tournamentsHandlers(r *gin.Engine) {
 	updateTournament := tournamentsControllers.NewUpdateTournament(a.tournamentsService, a.logger)
 	r.PUT("/api/tournaments/:tournament_alias", updateTournament.HTTPHandler)
 
+	createTournament := tournamentsControllers.NewCreateTournament(a.tournamentsService, a.logger)
+	r.POST("/api/tournaments", createTournament.HTTPHandler)
+
 	r.OPTIONS("/api/tournaments/:tournament_alias", func(c *gin.Context) { response_factory.ReturnOptions(c) })
+	r.OPTIONS("/api/tournaments", func(c *gin.Context) { response_factory.ReturnOptions(c) })
 }
 
 func (a *RestAPI) seasonsHandlers(r *gin.Engine) {
@@ -82,8 +86,17 @@ func (a *RestAPI) seasonsHandlers(r *gin.Engine) {
 	getSeason := seasonsControllers.NewGetSeason(a.seasonsService, a.logger)
 	r.GET("/api/seasons/:season_alias", getSeason.HTTPHandler)
 
+	createSeasons := seasonsControllers.NewCreateSeason(a.seasonsService, a.logger)
+	r.POST("/api/seasons", createSeasons.HTTPHandler)
+
+	updateSeason := seasonsControllers.NewUpdateSeason(a.seasonsService, a.logger)
+	r.PUT("/api/seasons/:season_alias", updateSeason.HTTPHandler)
+
 	getStages := seasonsControllers.NewGetStages(a.seasonsService, a.logger)
 	r.GET("/api/seasons/:season_alias/stages", getStages.HTTPHandler)
+
+	r.OPTIONS("/api/seasons/:season_alias", func(c *gin.Context) { response_factory.ReturnOptions(c) })
+	r.OPTIONS("/api/seasons", func(c *gin.Context) { response_factory.ReturnOptions(c) })
 }
 
 func (a *RestAPI) leaguesHandlers(r *gin.Engine) {
