@@ -13,7 +13,7 @@ type GetGroups struct {
 	logger  *zerolog.Logger
 }
 
-func NewGetGroups(service Service, logger *zerolog.Logger) *GetGroups {
+func NewFindGroups(service Service, logger *zerolog.Logger) *GetGroups {
 	return &GetGroups{service: service, logger: logger}
 }
 

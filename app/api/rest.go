@@ -5,13 +5,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
 	"net/http"
+	"tournament_gateway/app/api/controllers"
 	groupsControllers "tournament_gateway/app/api/controllers/groups"
 	leaguesControllers "tournament_gateway/app/api/controllers/leagues"
 	matchesControllers "tournament_gateway/app/api/controllers/matches"
 	seasonsControllers "tournament_gateway/app/api/controllers/seasons"
 	teamsControllers "tournament_gateway/app/api/controllers/teams"
 	tournamentsControllers "tournament_gateway/app/api/controllers/tournaments"
-	"tournament_gateway/app/api/response_factory"
 	groupsService "tournament_gateway/services/groups"
 	leaguesService "tournament_gateway/services/leagues"
 	matchesService "tournament_gateway/services/matches"
@@ -75,8 +75,8 @@ func (a *RestAPI) tournamentsHandlers(r *gin.Engine) {
 	createTournament := tournamentsControllers.NewCreateTournament(a.tournamentsService, a.logger)
 	r.POST("/api/tournaments", createTournament.HTTPHandler)
 
-	r.OPTIONS("/api/tournaments/:tournament_alias", func(c *gin.Context) { response_factory.ReturnOptions(c) })
-	r.OPTIONS("/api/tournaments", func(c *gin.Context) { response_factory.ReturnOptions(c) })
+	r.OPTIONS("/api/tournaments/:tournament_alias", controllers.OptionsHTTPHandler)
+	r.OPTIONS("/api/tournaments", controllers.OptionsHTTPHandler)
 }
 
 func (a *RestAPI) seasonsHandlers(r *gin.Engine) {
@@ -95,13 +95,13 @@ func (a *RestAPI) seasonsHandlers(r *gin.Engine) {
 	getStages := seasonsControllers.NewGetStages(a.seasonsService, a.logger)
 	r.GET("/api/seasons/:season_alias/stages", getStages.HTTPHandler)
 
-	r.OPTIONS("/api/seasons", func(c *gin.Context) { response_factory.ReturnOptions(c) })
-	r.OPTIONS("/api/seasons/:season_alias", func(c *gin.Context) { response_factory.ReturnOptions(c) })
+	r.OPTIONS("/api/seasons", controllers.OptionsHTTPHandler)
+	r.OPTIONS("/api/seasons/:season_alias", controllers.OptionsHTTPHandler)
 }
 
 func (a *RestAPI) leaguesHandlers(r *gin.Engine) {
 	findLeagues := leaguesControllers.NewFindLeagues(a.groupsService, a.logger)
-	r.GET("/api/leagues/find/:tournament_alias/:season_alias/:stage_alias", findLeagues.HTTPHandler)
+	r.GET("/api/leagues/list/:tournament_alias/:season_alias/:stage_alias", findLeagues.HTTPHandler)
 
 	getLeagues := leaguesControllers.NewGetLeagues(a.leaguesService, a.logger)
 	r.GET("/api/leagues", getLeagues.HTTPHandler)
@@ -115,22 +115,25 @@ func (a *RestAPI) leaguesHandlers(r *gin.Engine) {
 	updateLeague := leaguesControllers.NewUpdateLeague(a.leaguesService, a.logger)
 	r.PUT("/api/leagues/:league_alias", updateLeague.HTTPHandler)
 
-	r.OPTIONS("/api/leagues", func(c *gin.Context) { response_factory.ReturnOptions(c) })
-	r.OPTIONS("/api/leagues/:league_alias", func(c *gin.Context) { response_factory.ReturnOptions(c) })
+	r.OPTIONS("/api/leagues", controllers.OptionsHTTPHandler)
+	r.OPTIONS("/api/leagues/:league_alias", controllers.OptionsHTTPHandler)
 }
 
 func (a *RestAPI) groupsHandlers(r *gin.Engine) {
 	getTeams := groupsControllers.NewGetTeams(a.groupsService, a.logger)
-	r.GET("/api/groups/teams/:group_alias", getTeams.HTTPHandler)
+	r.GET("/api/groups/:group_alias/teams", getTeams.HTTPHandler)
 
 	getMatches := groupsControllers.NewGetMatches(a.groupsService, a.logger)
-	r.GET("/api/groups/matches/:group_alias", getMatches.HTTPHandler)
+	r.GET("/api/groups/:group_alias/matches", getMatches.HTTPHandler)
 
 	getResults := groupsControllers.NewGetGroupResults(a.groupsService, a.logger)
-	r.GET("/api/groups/results/:group_alias", getResults.HTTPHandler)
+	r.GET("/api/groups/:group_alias/results", getResults.HTTPHandler)
 
-	getGroups := groupsControllers.NewGetGroups(a.groupsService, a.logger)
-	r.GET("/api/groups/:tournament_alias/:season_alias/:stage_alias/:league_alias", getGroups.HTTPHandler)
+	findGroups := groupsControllers.NewFindGroups(a.groupsService, a.logger)
+	r.GET("/api/groups/list/:tournament_alias/:season_alias/:stage_alias/:league_alias", findGroups.HTTPHandler)
+
+	r.OPTIONS("/api/groups", controllers.OptionsHTTPHandler)
+	r.OPTIONS("/api/groups/:group_alias", controllers.OptionsHTTPHandler)
 }
 
 func (a *RestAPI) teamsHandlers(r *gin.Engine) {

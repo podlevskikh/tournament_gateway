@@ -416,7 +416,7 @@
         }
       }
     },
-    "/api/leagues/find/{tournament_alias}/{season_alias}/{stage_alias}": {
+    "/api/leagues/list/{tournament_alias}/{season_alias}/{stage_alias}": {
       "parameters": [
         {
           "$ref": "#/components/parameters/TournamentAlias"
@@ -455,7 +455,7 @@
         }
       }
     },
-    "/api/groups/{tournament_alias}/{season_alias}/{stage_alias}/{league_alias}": {
+    "/api/groups/list/{tournament_alias}/{season_alias}/{stage_alias}/{league_alias}": {
       "parameters": [
         {
           "$ref": "#/components/parameters/TournamentAlias"
@@ -497,7 +497,7 @@
         }
       }
     },
-    "/api/groups/matches/{group_alias}": {
+    "/api/groups/{group_alias}/matches": {
       "parameters": [
         {
           "$ref": "#/components/parameters/GroupAlias"
@@ -530,7 +530,7 @@
         }
       }
     },
-    "/api/groups/results/{group_alias}": {
+    "/api/groups/{group_alias}/results": {
       "parameters": [
         {
           "$ref": "#/components/parameters/GroupAlias"
@@ -563,7 +563,7 @@
         }
       }
     },
-    "/api/groups/teams/{group_alias}": {
+    "/api/groups/{group_alias}/teams": {
       "parameters": [
         {
           "$ref": "#/components/parameters/GroupAlias"
