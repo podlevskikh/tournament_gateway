@@ -11,4 +11,8 @@ type Repository interface {
 	GetGroupWithTeams(ctx context.Context, groupAlias string) (groups.Group, error)
 	GetGroupWithMatches(ctx context.Context, groupAlias string) (groups.Group, error)
 	GetGroupWithGroupResultsAndMatches(ctx context.Context, groupAlias string) (groups.Group, error)
+	GetGroups(ctx context.Context) ([]*groups.Group, error)
+	GetGroup(ctx context.Context, alias string) (*groups.Group, error)
+	UpdateGroup(ctx context.Context, g groups.Group) (*groups.Group, error)
+	CreateGroup(ctx context.Context, g groups.Group) (*groups.Group, error)
 }

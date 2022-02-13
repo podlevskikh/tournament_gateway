@@ -12,6 +12,9 @@ var (
 	ValidationError = Error{Code: "validation_error"}
 
 	TournamentNotFound = Error{Code: "tournament_not_found", Message: "tournament not found"}
+	SeasonNotFound = Error{Code: "season_not_found", Message: "season not found"}
+	StageNotFound = Error{Code: "stage_not_found", Message: "stage not found"}
+	LeagueNotFound = Error{Code: "league_not_found", Message: "league not found"}
 
 	Unknown  = Error{Code: "unknown", Message: "unknown error"}
 	Internal = Error{Code: "internal", Message: "internal error"}

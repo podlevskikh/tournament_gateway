@@ -67,6 +67,23 @@ func (s *Service) GetGroupResults(ctx context.Context, groupAlias string) ([]gro
 	return res, nil
 }
 
+func (s *Service) GetGroups(ctx context.Context) ([]*groups.Group, error) {
+	return s.rep.GetGroups(ctx)
+}
+
+func (s *Service) GetGroup(ctx context.Context, alias string) (*groups.Group, error) {
+	return s.rep.GetGroup(ctx, alias)
+}
+
+func (s *Service) UpdateGroup(ctx context.Context, g groups.Group) (*groups.Group, error) {
+	return s.rep.UpdateGroup(ctx, g)
+}
+
+func (s *Service) CreateGroup(ctx context.Context, g groups.Group) (*groups.Group, error) {
+	return s.rep.CreateGroup(ctx, g)
+}
+
+
 func leagueExists(ls []*leagues.League, league *leagues.League) bool {
 	for _, l := range ls {
 		if l.Alias == league.Alias {

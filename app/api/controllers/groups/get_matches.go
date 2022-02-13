@@ -9,11 +9,11 @@ import (
 )
 
 type GetMatches struct {
-	service Service
+	service GroupService
 	logger  *zerolog.Logger
 }
 
-func NewGetMatches(service Service, logger *zerolog.Logger) *GetMatches {
+func NewGetMatches(service GroupService, logger *zerolog.Logger) *GetMatches {
 	return &GetMatches{service: service, logger: logger}
 }
 

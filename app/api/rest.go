@@ -132,6 +132,18 @@ func (a *RestAPI) groupsHandlers(r *gin.Engine) {
 	findGroups := groupsControllers.NewFindGroups(a.groupsService, a.logger)
 	r.GET("/api/groups/list/:tournament_alias/:season_alias/:stage_alias/:league_alias", findGroups.HTTPHandler)
 
+	getGroups := groupsControllers.NewGetGroups(a.groupsService, a.logger)
+	r.GET("/api/groups", getGroups.HTTPHandler)
+
+	getGroup := groupsControllers.NewGetGroup(a.groupsService, a.logger)
+	r.GET("/api/groups/:group_alias", getGroup.HTTPHandler)
+
+	createGroup := groupsControllers.NewCreateGroup(a.groupsService, a.tournamentsService, a.seasonsService, a.leaguesService, a.logger)
+	r.POST("/api/groups", createGroup.HTTPHandler)
+
+	updateGroup := groupsControllers.NewUpdateGroup(a.groupsService, a.logger)
+	r.PUT("/api/groups/:group_alias", updateGroup.HTTPHandler)
+
 	r.OPTIONS("/api/groups", controllers.OptionsHTTPHandler)
 	r.OPTIONS("/api/groups/:group_alias", controllers.OptionsHTTPHandler)
 }

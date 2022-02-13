@@ -24,7 +24,7 @@ func (s *UpdateLeague) HTTPHandler(c *gin.Context) {
 	createRequest := requests.LeagueRequest{}
 	err := request_factory.ReadJSONRequestBody(c, &createRequest)
 	if err != nil {
-		s.logger.Err(err).Msg("create league request")
+		s.logger.Err(err).Msg("update league request")
 		return
 	}
 
@@ -36,7 +36,7 @@ func (s *UpdateLeague) HTTPHandler(c *gin.Context) {
 
 	le, err := s.service.UpdateLeague(c.Request.Context(), l)
 	if err != nil {
-		s.logger.Err(err).Msg("create league")
+		s.logger.Err(err).Msg("update league")
 		response_factory.ReturnError(c, response_error.Internal)
 		return
 	}

@@ -9,11 +9,11 @@ import (
 )
 
 type GetTeams struct {
-	service Service
+	service GroupService
 	logger  *zerolog.Logger
 }
 
-func NewGetTeams(service Service, logger *zerolog.Logger) *GetTeams {
+func NewGetTeams(service GroupService, logger *zerolog.Logger) *GetTeams {
 	return &GetTeams{service: service, logger: logger}
 }
 

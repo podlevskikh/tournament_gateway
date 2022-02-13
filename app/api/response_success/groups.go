@@ -19,19 +19,23 @@ type GroupResponse struct {
 	LeagueAlias     string `json:"leagueAlias"`
 }
 
-func FromGroupsResponse(grs []*groups.Group) GroupsResponse {
-	gs := make([]GroupResponse, 0, len(grs))
-	for _, g := range grs {
-		gs = append(gs, GroupResponse{
-			Alias:           g.Alias,
-			ShortName:       g.ShortName,
-			Name:            g.Name,
-			Description:     g.Description,
-			TournamentAlias: g.Tournament.Alias,
-			SeasonAlias:     g.Season.Alias,
-			StageAlias:      g.Stage.Alias,
-			LeagueAlias:     g.League.Alias,
-		})
+func FromGroupsResponse(gs []*groups.Group) GroupsResponse {
+	grs := make([]GroupResponse, 0, len(gs))
+	for _, g := range gs {
+		grs = append(grs, FromGroupResponse(g))
 	}
-	return GroupsResponse{Groups: gs}
+	return GroupsResponse{Groups: grs}
+}
+
+func FromGroupResponse(g *groups.Group) GroupResponse {
+	return GroupResponse{
+		Alias:           g.Alias,
+		ShortName:       g.ShortName,
+		Name:            g.Name,
+		Description:     g.Description,
+		TournamentAlias: g.Tournament.Alias,
+		SeasonAlias:     g.Season.Alias,
+		StageAlias:      g.Stage.Alias,
+		LeagueAlias:     g.League.Alias,
+	}
 }

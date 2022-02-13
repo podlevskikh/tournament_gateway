@@ -8,16 +8,16 @@ import (
 	"tournament_gateway/app/api/response_success"
 )
 
-type GetGroups struct {
-	service Service
+type FindGroups struct {
+	service GroupService
 	logger  *zerolog.Logger
 }
 
-func NewFindGroups(service Service, logger *zerolog.Logger) *GetGroups {
-	return &GetGroups{service: service, logger: logger}
+func NewFindGroups(service GroupService, logger *zerolog.Logger) *FindGroups {
+	return &FindGroups{service: service, logger: logger}
 }
 
-func (s *GetGroups) HTTPHandler(c *gin.Context) {
+func (s *FindGroups) HTTPHandler(c *gin.Context) {
 	tournamentAlias := c.Param("tournament_alias")
 	seasonAlias := c.Param("season_alias")
 	stageAlias := c.Param("stage_alias")
