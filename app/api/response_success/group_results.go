@@ -8,6 +8,7 @@ type GroupResultsResponse struct {
 
 type GroupResultResponse struct {
 	TeamResults []TeamResultResponse `json:"teamResults"`
+	ID          int                  `json:"id"`
 	Name        string               `json:"name"`
 	SoringType  string               `json:"scoringType"`
 }
@@ -55,6 +56,7 @@ func FromGroupResultsResponse(grs []groups.GroupResult) GroupResultsResponse {
 	for _, gr := range grs {
 		grrs = append(grrs, GroupResultResponse{
 			TeamResults: FromTeamResultsResponse(gr.TeamResults),
+			ID:          gr.ID,
 			Name:        gr.Name,
 			SoringType:  gr.ScoringType,
 		})

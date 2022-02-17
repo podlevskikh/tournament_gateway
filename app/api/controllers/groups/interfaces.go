@@ -13,7 +13,6 @@ type GroupService interface {
 	GetGroupTeams(ctx context.Context, groupAlias string) ([]groups.Team, error)
 	GetGroupMatches(ctx context.Context, groupAlias string) ([]groups.Match, error)
 	GetGroupResults(ctx context.Context, groupAlias string) ([]groups.GroupResult, error)
-	GetGroups(ctx context.Context) ([]*groups.Group, error)
 	GetGroup(ctx context.Context, alias string) (*groups.Group, error)
 	UpdateGroup(ctx context.Context, g groups.Group) (*groups.Group, error)
 	CreateGroup(ctx context.Context, g groups.Group) (*groups.Group, error)

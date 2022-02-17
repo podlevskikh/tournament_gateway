@@ -67,10 +67,6 @@ func (s *Service) GetGroupResults(ctx context.Context, groupAlias string) ([]gro
 	return res, nil
 }
 
-func (s *Service) GetGroups(ctx context.Context) ([]*groups.Group, error) {
-	return s.rep.GetGroups(ctx)
-}
-
 func (s *Service) GetGroup(ctx context.Context, alias string) (*groups.Group, error) {
 	return s.rep.GetGroup(ctx, alias)
 }

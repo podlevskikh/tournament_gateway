@@ -22,16 +22,20 @@ type StageResponse struct {
 func FromStagesResponse(ss []*seasons.Stage) StagesResponse {
 	res := make([]StageResponse, 0, len(ss))
 	for _, s := range ss {
-		res = append(res, StageResponse{
-			Alias:       s.Alias,
-			Name:        s.Name,
-			DateStart:   s.DateStart.Format("2006-01-02"),
-			DateFinish:  s.DateFinish.Format("2006-01-02"),
-			IsCurrent:   s.IsCurrent,
-			IconUrl:     s.IconUrl,
-			Type:        string(s.Type),
-			SeasonAlias: s.SeasonAlias,
-		})
+		res = append(res, FromStageResponse(s))
 	}
 	return StagesResponse{Stages: res}
+}
+
+func FromStageResponse(s *seasons.Stage) StageResponse {
+	return StageResponse{
+		Alias:       s.Alias,
+		Name:        s.Name,
+		DateStart:   s.DateStart.Format("2006-01-02"),
+		DateFinish:  s.DateFinish.Format("2006-01-02"),
+		IsCurrent:   s.IsCurrent,
+		IconUrl:     s.IconUrl,
+		Type:        string(s.Type),
+		SeasonAlias: s.SeasonAlias,
+	}
 }

@@ -897,7 +897,25 @@
           },
           "leagueAlias": {
             "type": "string",
-            "example": "male_2021-2022_second_group_round_first_league"
+            "example": "first_league"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupResult"
+            }
+          },
+          "tournament": {
+            "$ref": "#/components/schemas/Tournament"
+          },
+          "season": {
+            "$ref": "#/components/schemas/Season"
+          },
+          "stage": {
+            "$ref": "#/components/schemas/Stage"
+          },
+          "league": {
+            "$ref": "#/components/schemas/League"
           }
         }
       },
@@ -1198,6 +1216,10 @@
             "items": {
               "$ref": "#/components/schemas/TeamResult"
             }
+          },
+          "id": {
+            "type": "integer",
+            "example": "512"
           },
           "name": {
             "type": "string",
