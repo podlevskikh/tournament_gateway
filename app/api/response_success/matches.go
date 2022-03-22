@@ -9,11 +9,11 @@ type MatchesResponse struct {
 }
 
 type MatchResponse struct {
-	ID          int                  `json:"id"`
-	Date        string               `json:"date"`
-	HomeTeamID  int                  `json:"homeTeamID"`
-	GuestTeamID int                  `json:"guestTeamID"`
-	Result      *MatchResultResponse `json:"result,omitempty"`
+	ID        int                  `json:"id"`
+	Date      string               `json:"date"`
+	HomeTeam  TeamResponse         `json:"homeTeam"`
+	GuestTeam TeamResponse         `json:"guestTeam"`
+	Result    *MatchResultResponse `json:"result,omitempty"`
 }
 
 type MatchResultResponse struct {
@@ -47,10 +47,10 @@ func FromMatchesResponse(ms []groups.Match) MatchesResponse {
 
 func FromMatchResponse(m groups.Match) MatchResponse {
 	mr := MatchResponse{
-		ID:          m.ID,
-		Date:        m.Date.Format("2006-01-02"),
-		HomeTeamID:  m.HomeTeamID,
-		GuestTeamID: m.GuestTeamID,
+		ID:        m.ID,
+		Date:      m.Date.Format("2006-01-02"),
+		HomeTeam:  FromTeamResponse(m.HomeTeam),
+		GuestTeam: FromTeamResponse(m.GuestTeam),
 	}
 	if m.Result != nil {
 		setResults := make([]SetResultResponse, 0, len(m.Result.SetResults))

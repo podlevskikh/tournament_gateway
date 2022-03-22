@@ -91,6 +91,8 @@ func (r *Db) GetGroupWithMatches(ctx context.Context, groupAlias string) (groups
 	err := r.db.Set("_ctx", ctx).
 		Preload("Matches").
 		Preload("Matches.Result").
+		Preload("Matches.HomeTeam").
+		Preload("Matches.GuestTeam").
 		Preload("Matches.Result.SetResults").
 		Where("alias = ?", groupAlias).
 		First(&gr).Error

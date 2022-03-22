@@ -17,22 +17,22 @@ type GroupResponse struct {
 	SeasonAlias     string                `json:"seasonAlias"`
 	StageAlias      string                `json:"stageAlias"`
 	LeagueAlias     string                `json:"leagueAlias"`
-	Tournament      TournamentResponse    `json:"tournament,omitempty"`
-	Season          SeasonResponse        `json:"season,omitempty"`
-	Stage           StageResponse         `json:"stage,omitempty"`
-	League          LeagueResponse        `json:"league,omitempty"`
+	Tournament      *TournamentResponse    `json:"tournament,omitempty"`
+	Season          *SeasonResponse        `json:"season,omitempty"`
+	Stage           *StageResponse         `json:"stage,omitempty"`
+	League          *LeagueResponse        `json:"league,omitempty"`
 	Results         []GroupResultResponse `json:"results,omitempty"`
 }
 
-func FromGroupsResponse(gs []*groups.Group) GroupsResponse {
+func FromGroupsResponse(gs []*groups.Group, withInnerObjects bool) GroupsResponse {
 	grs := make([]GroupResponse, 0, len(gs))
 	for _, g := range gs {
-		grs = append(grs, FromGroupResponse(g))
+		grs = append(grs, FromGroupResponse(g, withInnerObjects))
 	}
 	return GroupsResponse{Groups: grs}
 }
 
-func FromGroupResponse(g *groups.Group) GroupResponse {
+func FromGroupResponse(g *groups.Group, withInnerObjects bool) GroupResponse {
 	res := GroupResponse{
 		Alias:           g.Alias,
 		ShortName:       g.ShortName,
@@ -44,17 +44,23 @@ func FromGroupResponse(g *groups.Group) GroupResponse {
 		LeagueAlias:     g.LeagueAlias,
 		Results:         FromGroupResultsResponse(g.GroupResults).GroupResults,
 	}
-	if g.Tournament != nil {
-		res.Tournament = FromTournamentResponse(g.Tournament)
-	}
-	if g.Season != nil {
-		res.Season = FromSeasonResponse(g.Season)
-	}
-	if g.Stage != nil {
-		res.Stage = FromStageResponse(g.Stage)
-	}
-	if g.League != nil {
-		res.League = FromLeagueResponse(g.League)
+	if withInnerObjects {
+		if g.Tournament != nil {
+			t := FromTournamentResponse(g.Tournament)
+			res.Tournament = &t
+		}
+		if g.Season != nil {
+			se := FromSeasonResponse(g.Season)
+			res.Season = &se
+		}
+		if g.Stage != nil {
+			st := FromStageResponse(g.Stage)
+			res.Stage = &st
+		}
+		if g.League != nil {
+			l := FromLeagueResponse(g.League)
+			res.League = &l
+		}
 	}
 	return res
 }

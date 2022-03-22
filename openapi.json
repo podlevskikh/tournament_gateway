@@ -6,6 +6,24 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/current": {
+      "get": {
+        "operationId":"current",
+        "description": "Get current objects",
+        "responses": {
+          "200": {
+            "description": "current objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/tournaments": {
       "get": {
         "security": [],
@@ -429,7 +447,7 @@
         }
       ],
       "get": {
-        "operationId": "getLeagues",
+        "operationId": "searchLeagues",
         "tags": [
           "leagues"
         ],
@@ -930,13 +948,11 @@
             "type": "string",
             "example": "2022-02-02"
           },
-          "homeTeamId": {
-            "type": "integer",
-            "example": 123
+          "homeTeam": {
+            "$ref": "#/components/schemas/Team"
           },
-          "guestTeamId": {
-            "type": "integer",
-            "example": 321
+          "guestTeam": {
+            "$ref": "#/components/schemas/Team"
           },
           "result": {
             "$ref": "#/components/schemas/MatchResult",
@@ -1397,6 +1413,51 @@
           "price": {
             "type": "string",
             "example": "1000-1400р, в зависимости от района"
+          }
+        }
+      },
+      "CurrentLeague": {
+        "type": "object",
+        "properties": {
+          "league": {
+            "$ref": "#/components/schemas/League"
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Group"
+            }
+          }
+        }
+      },
+      "CurrentTournament": {
+        "type": "object",
+        "properties": {
+          "tournament": {
+            "$ref": "#/components/schemas/Tournament"
+          },
+          "currentLeagues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CurrentLeague"
+            }
+          }
+        }
+      },
+      "CurrentResponse": {
+        "type": "object",
+        "properties": {
+          "currentStage": {
+            "$ref": "#/components/schemas/Stage"
+          },
+          "currentSeason": {
+            "$ref": "#/components/schemas/Season"
+          },
+          "currentTournaments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CurrentTournament"
+            }
           }
         }
       },

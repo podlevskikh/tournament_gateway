@@ -45,5 +45,5 @@ func (s *UpdateGroup) HTTPHandler(c *gin.Context) {
 		response_factory.ReturnError(c, response_error.Internal)
 		return
 	}
-	response_factory.ReturnSuccess(c, response_success.FromGroupResponse(gr))
+	response_factory.ReturnSuccess(c, response_success.FromGroupResponse(gr, true))
 }

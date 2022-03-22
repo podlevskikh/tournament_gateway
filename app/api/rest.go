@@ -6,6 +6,7 @@ import (
 	"github.com/rs/zerolog"
 	"net/http"
 	"tournament_gateway/app/api/controllers"
+	"tournament_gateway/app/api/controllers/current"
 	groupsControllers "tournament_gateway/app/api/controllers/groups"
 	leaguesControllers "tournament_gateway/app/api/controllers/leagues"
 	matchesControllers "tournament_gateway/app/api/controllers/matches"
@@ -48,6 +49,7 @@ func (a *RestAPI) RunHTTPServer(ctx context.Context) error {
 	}))
 
 	a.openapiHandlers(r)
+	a.currentHandlers(r)
 	a.tournamentsHandlers(r)
 	a.seasonsHandlers(r)
 	a.leaguesHandlers(r)
@@ -60,6 +62,11 @@ func (a *RestAPI) RunHTTPServer(ctx context.Context) error {
 
 func (a *RestAPI) openapiHandlers(r *gin.Engine) {
 	r.GET("/openapi.json", func(c *gin.Context) { http.ServeFile(c.Writer, c.Request, "./openapi.json") })
+}
+
+func (a *RestAPI) currentHandlers(r *gin.Engine) {
+	getCurrents := current.NewCurrent(a.groupsService, a.seasonsService, a.tournamentsService, a.logger)
+	r.GET("/api/current", getCurrents.HTTPHandler)
 }
 
 func (a *RestAPI) tournamentsHandlers(r *gin.Engine) {
