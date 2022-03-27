@@ -42,7 +42,7 @@ func NewRestAPI(tournamentsS *tournamentsService.Service, seasonsS *seasonsServi
 		playersService: playersS, matchesService: matchesS, logger: logger}
 }
 
-func (a *RestAPI) RunHTTPServer(ctx context.Context) error {
+func (a *RestAPI) RunHTTPServer(ctx context.Context, port string) error {
 	r := gin.Default()
 	r.Use(gin.CustomRecovery(func(c *gin.Context, recovered interface{}) {
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -57,7 +57,7 @@ func (a *RestAPI) RunHTTPServer(ctx context.Context) error {
 	a.teamsHandlers(r)
 	a.matchesHandlers(r)
 
-	return r.Run()
+	return r.Run(port)
 }
 
 func (a *RestAPI) openapiHandlers(r *gin.Engine) {

@@ -43,7 +43,7 @@ func (a *App) Start(ctx context.Context, logger *zerolog.Logger) error {
 
 	g, ctx := errgroup.WithContext(ctx)
 	g.Go(func() error {
-		return restAPI.RunHTTPServer(ctx)
+		return restAPI.RunHTTPServer(ctx, a.res.Env.ServerPort)
 	})
 	return g.Wait()
 }

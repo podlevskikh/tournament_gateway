@@ -11,8 +11,9 @@ type Env struct {
 	ServiceName string `envconfig:"APP_SERVICENAME" default:"tournament_gateway"`
 	PodName     string `envconfig:"APP_PODNAME" default:"podname"`
 
-	DSN   string `envconfig:"DB_DSN" required:"true" example:"user:pass@tcp(host:port)/dbname"`
-	Debug bool   `envconfig:"DB_DEBUG" default:"false"`
+	DSN        string `envconfig:"DB_DSN" required:"true" example:"user:pass@tcp(host:port)/dbname"`
+	Debug      bool   `envconfig:"DB_DEBUG" default:"false"`
+	ServerPort string `envconfig:"SERVER_PORT" default:"false"`
 }
 
 func init() {
