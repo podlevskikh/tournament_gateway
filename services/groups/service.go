@@ -62,7 +62,7 @@ func (s *Service) GetGroupResults(ctx context.Context, groupAlias string) ([]gro
 		if err != nil {
 			return []groups.GroupResult{}, errors.Wrap(err, "scoring calculator")
 		}
-		res[i].TeamResults = sr(r.Teams, gr.Matches)
+		res[i].TeamResults = result_calculators.CalculateResults(r.Teams, gr.Matches, sr)
 	}
 	return res, nil
 }
@@ -79,7 +79,6 @@ func (s *Service) CreateGroup(ctx context.Context, g groups.Group) (*groups.Grou
 	return s.rep.CreateGroup(ctx, g)
 }
 
-
 func leagueExists(ls []*leagues.League, league *leagues.League) bool {
 	for _, l := range ls {
 		if l.Alias == league.Alias {
@@ -89,12 +88,12 @@ func leagueExists(ls []*leagues.League, league *leagues.League) bool {
 	return false
 }
 
-func getScoringCalculator(scoringType string) (func(ts []groups.Team, ms []groups.Match) []groups.TeamResult, error) {
+func getScoringCalculator(scoringType string) (func(t groups.Team, ms []groups.Match) groups.TeamResult, error) {
 	switch scoringType {
 	case groups.WinsScoring:
-		return result_calculators.CalculateWinScoringResults, nil
+		return result_calculators.GetWinScoringResult, nil
 	case groups.PointsScoring:
-		return result_calculators.CalculatePointScoringResults, nil
+		return result_calculators.GetPointScoringResult, nil
 	}
-	return func(ts []groups.Team, ms []groups.Match) []groups.TeamResult { return []groups.TeamResult{} }, errors.New("calculator not supported")
+	return func(t groups.Team, ms []groups.Match) groups.TeamResult { return groups.TeamResult{} }, errors.New("calculator not supported")
 }

@@ -24,18 +24,8 @@ type TeamResult struct {
 type WinsScoringResult struct {
 	Wins               int
 	MaxPossibleWins    int
-	Points             int
-	MaxPossiblePoints  int
 	HandicapWins       int
-	HandicapPoints     int
-	ThreePointsMatches int
-	TwoPointsMatches   int
-	OnePointMatches    int
-	ZeroPointsMatches  int
-	WinSets            int
-	LoseSets           int
-	WinPoints          int
-	LosePoints         int
+	PointsScoringResult
 }
 
 type PointsScoringResult struct {
@@ -51,3 +41,4 @@ type PointsScoringResult struct {
 	WinPoints          int
 	LosePoints         int
 }
+

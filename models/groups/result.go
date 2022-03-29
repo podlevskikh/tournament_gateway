@@ -5,13 +5,11 @@ import (
 	"tournament_gateway/models/referees"
 )
 
-type Winner string
+type TeamType string
 
 const (
-	HomeTeam           = "home"
-	GuestTeam          = "guest"
-	WinnerHome  Winner = HomeTeam
-	WinnerGuest Winner = GuestTeam
+	HomeTeam  TeamType = "home"
+	GuestTeam TeamType = "guest"
 )
 
 type MatchResult struct {
@@ -30,7 +28,7 @@ type MatchResult struct {
 	GuestBestPlayer        *Player `gorm:"ForeignKey:GuestBestPlayerID;AssociationForeignKey:ID"`
 	GuestRefereeEvaluation int
 
-	Winner     Winner
+	Winner     TeamType
 	Referees   []*referees.Referee `gorm:"many2many:match_result2referee;foreignKey:MatchID;joinTableForeignKey:MatchResultMatchID;associationForeignKey:ID;associationJoinTableForeignKey:RefereeID"`
 	SetResults []*SetResult        `gorm:"ForeignKey:ResultMatchID;AssociationForeignKey:MatchID"`
 	Approved   bool
