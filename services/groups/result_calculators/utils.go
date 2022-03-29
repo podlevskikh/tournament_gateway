@@ -5,14 +5,13 @@ import (
 	"tournament_gateway/models/groups"
 )
 
-func CalculateResults(ts []groups.Team, ms []groups.Match, f func (groups.Team, []groups.Match) groups.TeamResult) []groups.TeamResult {
+func CalculateResults(ts []groups.Team, ms []groups.Match, f func(groups.Team, []groups.Match) groups.TeamResult) []groups.TeamResult {
 	res := make([]groups.TeamResult, 0, len(ts))
 	for _, t := range ts {
 		res = append(res, f(t, ms))
 	}
 	return sortAndSetPlaces(res)
 }
-
 
 func appendResults(winsScoring *groups.WinsScoringResult, t groups.Team, m groups.Match) {
 	if m.HomeTeamID != t.ID && m.GuestTeamID != t.ID {

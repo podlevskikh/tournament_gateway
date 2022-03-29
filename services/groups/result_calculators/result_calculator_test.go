@@ -454,3 +454,141 @@ func TestSortAndSetPlaces(t *testing.T) {
 		})
 	}
 }
+
+func TestCalculateResults(t *testing.T) {
+	handicapWins := 1
+	handicapPoints := 2
+	te := groups.Team{
+		ID:             1,
+		Name:           "name",
+		HandicapWins:   &handicapWins,
+		HandicapPoints: &handicapPoints,
+	}
+	res := groups.TeamResult{
+		Team:  te,
+		Place: 1,
+		PointsScoringResult: &groups.PointsScoringResult{
+			Points:             1,
+			MaxPossiblePoints:  2,
+			HandicapPoints:     3,
+			ThreePointsMatches: 4,
+			TwoPointsMatches:   5,
+			OnePointMatches:    6,
+			ZeroPointsMatches:  7,
+			WinSets:            8,
+			LoseSets:           9,
+			WinPoints:          0,
+			LosePoints:         10,
+		},
+	}
+	tests := []struct {
+		name        string
+		ts          []groups.Team
+		ms          []groups.Match
+		f           func(groups.Team, []groups.Match) groups.TeamResult
+		expectedTrs []groups.TeamResult
+	}{
+		{
+			name: "calc result",
+			ts:   []groups.Team{te},
+			ms:   []groups.Match{{HomeTeamID: 1}},
+			f: func(groups.Team, []groups.Match) groups.TeamResult {
+				return res
+			},
+			expectedTrs: []groups.TeamResult{res},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			r := CalculateResults(tt.ts, tt.ms, tt.f)
+
+			assert.Equal(t, tt.expectedTrs, r)
+		})
+	}
+}
+
+func TestGetPointScoringResult(t *testing.T) {
+	handicapWins := 1
+	handicapPoints := 2
+	te := groups.Team{
+		ID:             1,
+		Name:           "name",
+		HandicapWins:   &handicapWins,
+		HandicapPoints: &handicapPoints,
+	}
+	res := groups.TeamResult{
+		Team: te,
+		PointsScoringResult: &groups.PointsScoringResult{
+			Points:            2,
+			MaxPossiblePoints: 2,
+			HandicapPoints:    2,
+		},
+	}
+	tests := []struct {
+		name        string
+		t           groups.Team
+		ms          []groups.Match
+		expectedTrs groups.TeamResult
+	}{
+		{
+			name:        "empty results",
+			t:           te,
+			ms:          []groups.Match{},
+			expectedTrs: res,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			r := GetPointScoringResult(tt.t, tt.ms)
+
+			assert.Equal(t, tt.expectedTrs, r)
+		})
+	}
+}
+
+func TestGetWinScoringResult(t *testing.T) {
+	handicapWins := 1
+	handicapPoints := 2
+	te := groups.Team{
+		ID:             1,
+		Name:           "name",
+		HandicapWins:   &handicapWins,
+		HandicapPoints: &handicapPoints,
+	}
+	res := groups.TeamResult{
+		Team: te,
+		WinsScoringResult: &groups.WinsScoringResult{
+			Wins:            1,
+			MaxPossibleWins: 1,
+			HandicapWins:    1,
+			PointsScoringResult: groups.PointsScoringResult{
+				Points:            2,
+				MaxPossiblePoints: 2,
+				HandicapPoints:    2,
+			},
+		},
+	}
+	tests := []struct {
+		name        string
+		t           groups.Team
+		ms          []groups.Match
+		expectedTrs groups.TeamResult
+	}{
+		{
+			name:        "empty results",
+			t:           te,
+			ms:          []groups.Match{},
+			expectedTrs: res,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			r := GetWinScoringResult(tt.t, tt.ms)
+
+			assert.Equal(t, tt.expectedTrs, r)
+		})
+	}
+}
