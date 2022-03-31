@@ -1530,7 +1530,7 @@
       "GroupResultsResponse": {
         "type": "object",
         "properties": {
-          "group_results": {
+          "groupResults": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/GroupResult"

@@ -3,7 +3,7 @@ package response_success
 import "tournament_gateway/models/groups"
 
 type GroupResultsResponse struct {
-	GroupResults []GroupResultResponse `json:"group_results"`
+	GroupResults []GroupResultResponse `json:"groupResults"`
 }
 
 type GroupResultResponse struct {
