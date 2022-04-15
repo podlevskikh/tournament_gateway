@@ -14,7 +14,7 @@ type MatchResponse struct {
 	HomeTeam  TeamResponse         `json:"homeTeam"`
 	GuestTeam TeamResponse         `json:"guestTeam"`
 	Result    *MatchResultResponse `json:"result,omitempty"`
-	Gym       GymResponse          `json:"gym"`
+	Gym       *GymResponse         `json:"gym,omitempty"`
 }
 
 type MatchResultResponse struct {
@@ -52,7 +52,10 @@ func FromMatchResponse(m groups.Match) MatchResponse {
 		Date:      m.Date.Format("2006-01-02"),
 		HomeTeam:  FromTeamResponse(m.HomeTeam),
 		GuestTeam: FromTeamResponse(m.GuestTeam),
-		Gym:       FromGymResponse(&m.Gym),
+	}
+	if m.Gym != nil {
+		g := FromGymResponse(m.Gym)
+		mr.Gym = &g
 	}
 	if m.Result != nil {
 		setResults := make([]SetResultResponse, 0, len(m.Result.SetResults))

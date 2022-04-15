@@ -14,6 +14,6 @@ type Match struct {
 	GuestTeam   Team         `gorm:"ForeignKey:GuestTeamID;AssociationForeignKey:ID"`
 	Result      *MatchResult `gorm:"ForeignKey:MatchID;AssociationForeignKey:ID"`
 	GymID       int
-	Gym         gyms.Gym `gorm:"ForeignKey:GymID;AssociationForeignKey:ID"`
+	Gym         *gyms.Gym `gorm:"ForeignKey:GymID;AssociationForeignKey:ID"`
 	GroupAlias  string
 }
