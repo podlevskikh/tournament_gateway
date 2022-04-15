@@ -22,6 +22,8 @@ type MatchResultResponse struct {
 	Winner                 string              `json:"winner"`
 	HomePoints             int                 `json:"homePoints"`
 	GuestPoints            int                 `json:"guestPoints"`
+	HomeSetsWin            int                 `json:"homeSetsWin"`
+	GuestSetsWin           int                 `json:"guestSetsWin"`
 	SetResults             []SetResultResponse `json:"setResults"`
 	HomeTeamPlayers        []PlayerResponse    `json:"homeTeamPlayers,omitempty"`
 	GuestTeamPlayers       []PlayerResponse    `json:"guestTeamPlayers,omitempty"`
@@ -58,6 +60,8 @@ func FromMatchResponse(m groups.Match) MatchResponse {
 		mr.Gym = &g
 	}
 	if m.Result != nil {
+		homeSetsWin := 0
+		guestSetsWin := 0
 		setResults := make([]SetResultResponse, 0, len(m.Result.SetResults))
 		for _, sr := range m.Result.SetResults {
 			setResults = append(setResults, SetResultResponse{
@@ -65,6 +69,11 @@ func FromMatchResponse(m groups.Match) MatchResponse {
 				HomeScore:  sr.HomeScore,
 				GuestScore: sr.GuestScore,
 			})
+			if sr.HomeScore > sr.GuestScore {
+				homeSetsWin++
+			} else {
+				guestSetsWin++
+			}
 		}
 		rs := make([]*RefereeResponse, 0, len(m.Result.Referees))
 		for _, r := range m.Result.Referees {
@@ -76,6 +85,8 @@ func FromMatchResponse(m groups.Match) MatchResponse {
 			Winner:                 string(m.Result.Winner),
 			HomePoints:             m.Result.HomePoints,
 			GuestPoints:            m.Result.GuestPoints,
+			HomeSetsWin:            homeSetsWin,
+			GuestSetsWin:           guestSetsWin,
 			SetResults:             setResults,
 			HomeTeamPlayers:        FromPlayersResponse(m.Result.HomeTeamPlayers).Players,
 			GuestTeamPlayers:       FromPlayersResponse(m.Result.GuestTeamPlayers).Players,
