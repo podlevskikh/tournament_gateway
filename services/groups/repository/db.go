@@ -78,6 +78,8 @@ func (r *Db) GetGroupWithGroupResultsAndMatches(ctx context.Context, groupAlias 
 		Preload("Matches").
 		Preload("Matches.Result").
 		Preload("Matches.Result.SetResults").
+		Preload("Matches.Gym").
+		Preload("Matches.Gym.Metros").
 		Where("alias = ?", groupAlias).
 		First(&gr).Error
 	if err != nil {
@@ -94,6 +96,8 @@ func (r *Db) GetGroupWithMatches(ctx context.Context, groupAlias string) (groups
 		Preload("Matches.HomeTeam").
 		Preload("Matches.GuestTeam").
 		Preload("Matches.Result.SetResults").
+		Preload("Matches.Gym").
+		Preload("Matches.Gym.Metros").
 		Where("alias = ?", groupAlias).
 		First(&gr).Error
 	if err != nil {

@@ -27,6 +27,8 @@ func (r *Db) GetMatch(ctx context.Context, matchID int) (groups.Match, error) {
 		Preload("Result.GuestBestPlayer").
 		Preload("Result.Referees").
 		Preload("Result.SetResults").
+		Preload("Gym").
+		Preload("Gym.Metros").
 		Where("ID = ?", matchID).
 		Find(&m).Error
 	if err != nil {

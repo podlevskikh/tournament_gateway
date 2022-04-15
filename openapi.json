@@ -954,6 +954,9 @@
           "guestTeam": {
             "$ref": "#/components/schemas/Team"
           },
+          "gym": {
+            "$ref": "#/components/schemas/Gym"
+          },
           "result": {
             "$ref": "#/components/schemas/MatchResult",
             "nullable": true
