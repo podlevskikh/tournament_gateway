@@ -1,6 +1,9 @@
 package response_success
 
-import "tournament_gateway/models/leagues"
+import (
+	"sort"
+	"tournament_gateway/models/leagues"
+)
 
 type LeaguesResponse struct {
 	Leagues []LeagueResponse `json:"leagues"`
@@ -17,6 +20,12 @@ func FromLeaguesResponse(leagues []*leagues.League) LeaguesResponse {
 	for _, l := range leagues {
 		ls = append(ls, FromLeagueResponse(l))
 	}
+
+	sort.Slice(
+		ls,
+		func(i, j int) bool {
+			return ls[i].StrengthWeight < ls[j].StrengthWeight
+		})
 	return LeaguesResponse{Leagues: ls}
 }
 

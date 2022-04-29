@@ -1,6 +1,9 @@
 package response_success
 
-import "tournament_gateway/models/tournaments"
+import (
+	"sort"
+	"tournament_gateway/models/tournaments"
+)
 
 type TournamentsResponse struct {
 	Tournaments []TournamentResponse `json:"tournaments"`
@@ -18,6 +21,11 @@ func FromTournamentsResponse(ts []*tournaments.Tournament) TournamentsResponse {
 	for _, t := range ts {
 		res = append(res, FromTournamentResponse(t))
 	}
+	sort.Slice(
+		res,
+		func(i, j int) bool {
+			return []rune(res[i].Name)[0] == []rune("М")[0]
+		})
 	return TournamentsResponse{Tournaments: res}
 }
 
