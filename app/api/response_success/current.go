@@ -32,6 +32,10 @@ func FromCurrentTournamentResponse(t *tournaments.Tournament, gs []*groups.Group
 		cls = append(cls, FromLeagueGroupsResponse(t, l, gs))
 	}
 
+	sort.Slice(cls, func(i,j int) bool {
+		return cls[i].League.StrengthWeight < cls[j].League.StrengthWeight
+	})
+
 	return CurrentTournament{
 		Tournament:     FromTournamentResponse(t),
 		CurrentLeagues: cls,
