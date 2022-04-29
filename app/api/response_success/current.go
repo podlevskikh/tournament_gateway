@@ -1,6 +1,7 @@
 package response_success
 
 import (
+	"sort"
 	"tournament_gateway/models/groups"
 	"tournament_gateway/models/leagues"
 	"tournament_gateway/models/seasons"
@@ -57,6 +58,9 @@ func FromCurrentResponse(gs []*groups.Group) CurrentResponse {
 	for _, t := range ts {
 		cts = append(cts, FromCurrentTournamentResponse(t, cgs))
 	}
+	sort.Slice(cts, func(i,j int) bool {
+		return cts[i].Tournament.Gender == "male" //todo пока сортируем по полу
+	})
 	return CurrentResponse{
 		CurrentStage:       FromStageResponse(st),
 		CurrentSeason:      FromSeasonResponse(se),
