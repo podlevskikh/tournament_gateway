@@ -772,6 +772,10 @@
             "type": "string",
             "example": "male"
           },
+          "shortName": {
+            "type": "string",
+            "example": "Мужчины"
+          },
           "name": {
             "type": "string",
             "example": "Мужской турнир"
@@ -794,6 +798,10 @@
         "type": "object",
         "properties": {
           "alias": {
+            "type": "string",
+            "example": "2021-2022"
+          },
+          "shortName": {
             "type": "string",
             "example": "2021-2022"
           },
@@ -828,6 +836,10 @@
           "alias": {
             "type": "string",
             "example": "2021-2022_second_group_round"
+          },
+          "shortName": {
+            "type": "string",
+            "example": "2"
           },
           "name": {
             "type": "string",
@@ -871,6 +883,10 @@
           "alias": {
             "type": "string",
             "example": "first_league"
+          },
+          "shortName": {
+            "type": "string",
+            "example": "Первая"
           },
           "name": {
             "type": "string",

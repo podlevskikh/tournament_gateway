@@ -25,7 +25,7 @@ func FromGymResponse(g *gyms.Gym) GymResponse {
 	}
 	return GymResponse{
 		ID:          g.ID,
-		Address:     g.Address,
+		Address:     "", //todo check privilegues g.Address,
 		Name:        g.Name,
 		Description: g.Description,
 		Metros:      ms,
