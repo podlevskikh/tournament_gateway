@@ -10,7 +10,7 @@ type MatchesResponse struct {
 
 type MatchResponse struct {
 	ID        int                  `json:"id"`
-	Date      string               `json:"date"`
+	DateTime  string               `json:"datetime"`
 	HomeTeam  TeamResponse         `json:"homeTeam"`
 	GuestTeam TeamResponse         `json:"guestTeam"`
 	Result    *MatchResultResponse `json:"result,omitempty"`
@@ -51,7 +51,7 @@ func FromMatchesResponse(ms []groups.Match) MatchesResponse {
 func FromMatchResponse(m groups.Match) MatchResponse {
 	mr := MatchResponse{
 		ID:        m.ID,
-		Date:      m.Date.Format("2006-01-02"),
+		DateTime:  m.Date.Format("2006-01-02 15:04:05"),
 		HomeTeam:  FromTeamResponse(m.HomeTeam),
 		GuestTeam: FromTeamResponse(m.GuestTeam),
 	}
