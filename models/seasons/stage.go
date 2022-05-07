@@ -5,7 +5,7 @@ import "time"
 type StageType string
 
 const (
-	StageTypeUndefined StageType = "undefined"
+	StageTypeUndefined     StageType = "undefined"
 	StageTypeQualification StageType = "qualification"
 	StageTypeGroups        StageType = "groups"
 	StageTypeJoint         StageType = "joint"
@@ -15,6 +15,7 @@ const (
 
 type Stage struct {
 	Alias       string
+	ShortName   string
 	Name        string
 	DateStart   time.Time
 	DateFinish  time.Time

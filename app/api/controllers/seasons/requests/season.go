@@ -7,6 +7,7 @@ import (
 
 type SeasonRequest struct {
 	Alias      string         `json:"alias"`
+	ShortName  string         `json:"shortName"`
 	Name       string         `json:"name"`
 	DateStart  SeasonDate     `json:"dateStart"`
 	DateFinish SeasonDate     `json:"dateFinish"`
@@ -16,6 +17,7 @@ type SeasonRequest struct {
 
 type StageRequest struct {
 	Alias       string     `json:"alias"`
+	ShortName   string     `json:"shortName"`
 	Name        string     `json:"name"`
 	DateStart   SeasonDate `json:"dateStart"`
 	DateFinish  SeasonDate `json:"dateFinish"`

@@ -10,6 +10,7 @@ type SeasonsResponse struct {
 
 type SeasonResponse struct {
 	Alias      string          `json:"alias"`
+	ShortName  string          `json:"shortName"`
 	Name       string          `json:"name"`
 	DateStart  string          `json:"dateStart"`
 	DateFinish string          `json:"dateFinish"`
@@ -28,6 +29,7 @@ func FromSeasonsResponse(ss []*seasons.Season) SeasonsResponse {
 func FromSeasonResponse(s *seasons.Season) SeasonResponse {
 	return SeasonResponse{
 		Alias:      s.Alias,
+		ShortName:  s.ShortName,
 		Name:       s.Name,
 		DateStart:  s.DateStart.Format("2006-01-02"),
 		DateFinish: s.DateFinish.Format("2006-01-02"),

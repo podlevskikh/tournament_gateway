@@ -11,6 +11,7 @@ type TournamentsResponse struct {
 
 type TournamentResponse struct {
 	Alias       string `json:"alias"`
+	ShortName   string `json:"shortName"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Gender      string `json:"gender"`
@@ -32,6 +33,7 @@ func FromTournamentsResponse(ts []*tournaments.Tournament) TournamentsResponse {
 func FromTournamentResponse(t *tournaments.Tournament) TournamentResponse {
 	return TournamentResponse{
 		Alias:       t.Alias,
+		ShortName:   t.ShortName,
 		Name:        t.Name,
 		Description: t.Description,
 		Gender:      string(t.Gender),

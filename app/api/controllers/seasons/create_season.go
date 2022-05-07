@@ -37,6 +37,7 @@ func (s *CreateSeason) HTTPHandler(c *gin.Context) {
 	}
 	se := seasons.Season{
 		Alias:      createRequest.Alias,
+		ShortName:  createRequest.ShortName,
 		Name:       createRequest.Name,
 		DateStart:  time.Time(createRequest.DateStart),
 		DateFinish: time.Time(createRequest.DateFinish),

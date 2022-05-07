@@ -16,6 +16,7 @@ func createStageFromRequest(seasonAlias string, stagesRequest []requests.StageRe
 		}
 		req = append(req, &seasons.Stage{
 			Alias:       s.Alias,
+			ShortName:   s.ShortName,
 			Name:        s.Name,
 			DateStart:   time.Time(s.DateStart),
 			DateFinish:  time.Time(s.DateFinish),

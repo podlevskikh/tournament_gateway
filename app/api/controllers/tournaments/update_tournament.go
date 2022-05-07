@@ -41,6 +41,7 @@ func (s *UpdateTournament) HTTPHandler(c *gin.Context) {
 		return
 	}
 	t.Name = updateRequest.Name
+	t.ShortName = updateRequest.ShortName
 	t.Description = updateRequest.Description
 	t.Gender = g
 

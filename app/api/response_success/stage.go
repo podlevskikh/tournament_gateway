@@ -10,6 +10,7 @@ type StagesResponse struct {
 
 type StageResponse struct {
 	Alias       string `json:"alias"`
+	ShortName   string `json:"shortName"`
 	Name        string `json:"name"`
 	DateStart   string `json:"dateStart"`
 	DateFinish  string `json:"dateFinish"`
@@ -30,6 +31,7 @@ func FromStagesResponse(ss []*seasons.Stage) StagesResponse {
 func FromStageResponse(s *seasons.Stage) StageResponse {
 	return StageResponse{
 		Alias:       s.Alias,
+		ShortName:   s.ShortName,
 		Name:        s.Name,
 		DateStart:   s.DateStart.Format("2006-01-02"),
 		DateFinish:  s.DateFinish.Format("2006-01-02"),

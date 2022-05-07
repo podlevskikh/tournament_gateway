@@ -11,6 +11,7 @@ const (
 type Tournament struct {
 	//ID          string `gorm:"column:alias"`
 	Alias       string
+	ShortName   string
 	Name        string
 	Description string
 	Gender      TournamentGender

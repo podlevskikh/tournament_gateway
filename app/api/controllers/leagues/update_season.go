@@ -30,6 +30,7 @@ func (s *UpdateLeague) HTTPHandler(c *gin.Context) {
 
 	l := leagues.League{
 		Alias:          createRequest.Alias,
+		ShortName:      createRequest.ShortName,
 		Name:           createRequest.Name,
 		StrengthWeight: createRequest.StrengthWeight,
 	}

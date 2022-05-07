@@ -11,6 +11,7 @@ type LeaguesResponse struct {
 
 type LeagueResponse struct {
 	Alias          string `json:"alias"`
+	ShortName      string `json:"shortName"`
 	Name           string `json:"name"`
 	StrengthWeight int    `json:"strengthWeight"`
 }
@@ -32,6 +33,7 @@ func FromLeaguesResponse(leagues []*leagues.League) LeaguesResponse {
 func FromLeagueResponse(l *leagues.League) LeagueResponse {
 	return LeagueResponse{
 		Alias:          l.Alias,
+		ShortName:      l.ShortName,
 		Name:           l.Name,
 		StrengthWeight: l.StrengthWeight,
 	}

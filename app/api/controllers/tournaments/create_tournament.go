@@ -36,6 +36,7 @@ func (s *CreateTournament) HTTPHandler(c *gin.Context) {
 	}
 	t := tournaments.Tournament{
 		Alias:       createRequest.Alias,
+		ShortName:   createRequest.ShortName,
 		Name:        createRequest.Name,
 		Description: createRequest.Description,
 		Gender:      g,
