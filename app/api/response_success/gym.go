@@ -1,6 +1,9 @@
 package response_success
 
-import "tournament_gateway/models/gyms"
+import (
+	"strings"
+	"tournament_gateway/models/gyms"
+)
 
 type GymResponse struct {
 	ID          int             `json:"id"`
@@ -11,16 +14,24 @@ type GymResponse struct {
 }
 
 type MetroResponse struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
+	ID       int    `json:"id"`
+	Name     string `json:"name"`
+	LineName string `json:"lineName"`
 }
 
 func FromGymResponse(g *gyms.Gym) GymResponse {
 	ms := make([]MetroResponse, 0, len(g.Metros))
 	for _, m := range g.Metros {
+		nameSplit := strings.Split(m.Name, "(")
+		name := strings.Trim(nameSplit[0], " ")
+		lineName := ""
+		if len(nameSplit) > 1 {
+			lineName = strings.Trim(nameSplit[1], ") ")
+		}
 		ms = append(ms, MetroResponse{
-			ID:   m.ID,
-			Name: m.Name,
+			ID:       m.ID,
+			Name:     name,
+			LineName: lineName,
 		})
 	}
 	return GymResponse{
