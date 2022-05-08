@@ -1,6 +1,7 @@
 package response_success
 
 import (
+	"sort"
 	"tournament_gateway/models/groups"
 )
 
@@ -29,6 +30,10 @@ func FromGroupsResponse(gs []*groups.Group, withInnerObjects bool) GroupsRespons
 	for _, g := range gs {
 		grs = append(grs, FromGroupResponse(g, withInnerObjects))
 	}
+	sort.Slice(grs, func(i,j int) bool {
+		return grs[i].ShortName < grs[j].ShortName
+	})
+
 	return GroupsResponse{Groups: grs}
 }
 
